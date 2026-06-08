@@ -76,5 +76,5 @@ input_path = './templates/prismlauncher.json'
 output_path = '~/.local/share/FreesmLauncher/themes/Matugen/theme.json'
 
 [templates.obs]
-input_path = './templates/matugen.obt'
+input_path = './templates/obs.obt'
 output_path = '~/.config/obs-studio/themes/matugen.obt'
