@@ -11,7 +11,7 @@ set -gx GOPATH "$HOME/.local/share/go"
 fish_add_path "$CARGO_HOME/bin" "$GOPATH/bin"
 
 # UWSM
-if status is-login
+if status is-login; and test (tty) = "/dev/tty1"
     if uwsm check may-start
         exec uwsm start hyprland.desktop
     end
