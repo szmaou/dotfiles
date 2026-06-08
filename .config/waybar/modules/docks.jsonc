@@ -1,0 +1,21 @@
+{
+  "custom/icon": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/nvim": {
+    "format": "",
+    "on-click": "runapp kitty -1 nvim",
+    "tooltip": false
+  },
+  "custom/codium": {
+    "format": "󰨞",
+    "on-click": "runapp codium",
+    "tooltip": false
+  },
+  "custom/android-studio": {
+    "format": "",
+    "on-click": "runapp android-studio",
+    "tooltip": false
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "",
+    "format-icons": {
+      "headphone": "󰋋",
+      "headset": "󰋋",
+      "hands-free": "󰋋",
+      "default": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "swayosd-client --output-volume mute-toggle",
+    "on-click-right": "runapp pavucontrol"
+  },
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": "",
+    "format-source-muted": ""
+  },
+  "pulseaudio/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal"
+  }
+}

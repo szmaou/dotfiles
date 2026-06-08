@@ -1,0 +1,80 @@
+[config]
+
+[templates.hyprland]
+input_path = './templates/hyprland.lua'
+output_path = '~/.config/hypr/colors/colors.lua'
+
+[templates.hyprlock]
+input_path = './templates/hyprlock.conf'
+output_path = '~/.config/hypr/hyprlock/colors.conf'
+
+[templates.gtk3]
+input_path = './templates/gtk.css'
+output_path = '~/.config/gtk-3.0/colors.css'
+post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme ""; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}'
+
+[templates.gtk4]
+input_path = './templates/gtk.css'
+output_path = '~/.config/gtk-4.0/colors.css'
+post_hook = '~/.config/matugen/scripts/gtk-themes-reload.sh'
+
+[templates.hyprqt6engine]
+input_path = './templates/hyprqt6engine.conf'
+output_path = '~/.config/hypr/colors/qt6_colors_schema.conf'
+
+[templates.waybar]
+input_path = './templates/waybar.css'
+output_path = '~/.config/waybar/styles/colors.css'
+post_hook = 'pkill -SIGUSR2 waybar'
+
+[templates.kitty]
+input_path = './templates/kitty.conf'
+output_path = '~/.config/kitty/colors.conf'
+post_hook = 'pkill -SIGUSR1 kitty'
+
+[templates.fuzzel]
+input_path = './templates/fuzzel.ini'
+output_path = '~/.config/fuzzel/colors.ini'
+
+[templates.nvchad]
+input_path = './templates/nvchad.lua'
+output_path = '~/.config/nvim/lua/themes/matugen.lua'
+post_hook = 'pkill -SIGUSR1 nvim 2>/dev/null || true'
+
+[templates.swaync]
+input_path = './templates/swaync.css'
+output_path = '~/.config/swaync/css/colors.css'
+post_hook = 'swaync-client --reload-css'
+
+[templates.swayosd]
+input_path = './templates/swayosd.css'
+output_path = '~/.config/swayosd/colors.css'
+post_hook = 'pkill -x swayosd-server 2>/dev/null; nohup swayosd-server > /dev/null 2>&1 &'
+
+[templates.btop]
+input_path = './templates/btop.theme'
+output_path = '~/.config/btop/themes/matugen.theme'
+
+[templates.yazi]
+input_path = './templates/yazi-theme.toml'
+output_path = '~/.config/yazi/theme.toml'
+
+[templates.zed]
+input_path = './templates/zed-colors.json'
+output_path = '~/.config/zed/themes/matugen.json'
+
+#[templates.zen]
+#input_path = "~/.config/matugen/templates/zen.css"
+#output_path = "~/.zen/8hbky3tb.Default (release)/chrome/matugen.css"
+
+[templates.vesktop]
+input_path = './templates/midnight-discord.css'
+output_path = '~/.config/vesktop/themes/midnight.css'
+
+[templates.prismlauncher]
+input_path = './templates/prismlauncher.json'
+output_path = '~/.local/share/FreesmLauncher/themes/Matugen/theme.json'
+
+[templates.obs]
+input_path = './templates/matugen.obt'
+output_path = '~/.config/obs-studio/themes/matugen.obt'

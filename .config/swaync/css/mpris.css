@@ -1,0 +1,71 @@
+.widget-mpris {
+  padding: 10px;
+}
+
+.widget-mpris carouselindicatordots {
+  color: @on_surface;
+}
+
+.widget-mpris-player {
+  margin: 6px;
+  border-radius: 10px;
+  border: 2px solid alpha(@on_surface, 0.3);
+}
+
+.widget-mpris-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: @on_surface;
+  padding: 8px;
+  margin-right: 12px;
+  border-radius: 999px;
+}
+
+.widget-mpris-subtitle {
+  color: alpha(@on_surface, 0.7);
+  padding: 8px;
+  margin-right: 12px;
+  border-radius: 999px;
+}
+
+.widget-mpris button:disabled {
+  opacity: 0.6;
+  filter: grayscale(1);
+}
+
+.widget-mpris button image {
+  -gtk-icon-size: 1rem;
+}
+
+.widget-mpris-player image {
+  -gtk-icon-size: 64px;
+  border-radius: 10px;
+  margin: 10px 0 0 10px;
+}
+
+.widget-mpris-player button image {
+  -gtk-icon-size: 2rem;
+  color: @on_surface;
+  border-radius: 50px;
+  margin: 0 20px 20px 20px;
+  border: none;
+}
+
+.widget-mpris-player button image:hover {
+  color: @secondary;
+  border: none;
+}
+
+.mpris-background {
+  opacity: 0.1;
+  filter: blur(5px);
+}
+
+picture.mpris-overlay {
+  opacity: 1;
+}
+
+.widget-mpris-album-art {
+  background-color: alpha(@on_surface, 0.3);
+  opacity: 0.5;
+}

@@ -1,0 +1,80 @@
+{
+  "hyprland/workspaces": {
+    "format": "{icon} {windows}",
+    "on-click": "activate",
+    "window-rewrite-default": "",
+    "window-rewrite": {
+      // Browser
+      "firefox": "",
+      "zen": "",
+      // Code / IDE
+      "class<code>": "󰨞",
+      "class<jetbrains-studio>": "󰀴",
+      "nvim": "",
+      "zed": "",
+      // Terminal / File Manager
+      "kitty": "󰆍",
+      "thunar": "",
+      "yazi": "󰇥",
+      // Office / Dokumen
+      "mousepad": "󱓧",
+      "onlyoffice": "󰏆",
+      // Media / Image
+      "imv": "󰄄",
+      "mpv": "",
+      "swappy": "󰄄",
+      "vlc": "󰕼",
+      // Social / Chat
+      "discord": "",
+      "vesktop": "",
+      "title<.*youtube.*>": "󰗃",
+      "title<.*whatsapp.*>": "󰖣",
+      "title<.*instagram.*>": "󰋾",
+      "title<.*facebook.*>": "󰈌",
+      "title<.*twitch.*>": "󰕃",
+      "title<.*telegram.*>": "",
+      // Game
+      "class<Minecraft.*>": "󰍳",
+      "class<org.freesmlauncher.FreesmLauncher>": "󰍳",
+      "steam": "󰓓",
+      // Musik
+      "spotify": "",
+      // Download
+      "class<org.qbittorrent.qBittorrent>": "󰘿",
+      // Git
+      "title<.*codeberg.*>": "",
+      "title<.*github.*>": "󰊤",
+      "title<.*gitlab.*>": "",
+      "title<.*gitea.*>": "",
+      // System / Utility
+      "assistant": "󰒓",
+      "blueman-manager": "",
+      "designer": "󰒓",
+      "linguist": "󰒓",
+      "nm-connection-editor": "󰐻",
+      "nwg-look": "󰒓",
+      "org.gnome.FileRoller": "",
+      "org.kde.kdeconnect.app": "󰦉",
+      "pavucontrol": "󱕂",
+      "pixeltool": "󰒓",
+      "qdbusviewer": "󰒓",
+      "qt5ct": "󰒓",
+      "qt6ct": "󰒓",
+      "xdg-desktop-portal-gtk": ""
+    },
+    "workspace-taskbar": {
+      "enable": false,
+      "update-active-window": true,
+      "icon-size": 10,
+      "format": "{icon}"
+    },
+    "format-icons": {
+      "active": "",
+      "special": "󱟜",
+      "default": "",
+      "urgent": "",
+      "empty": ""
+    },
+    "show-special": true
+  }
+}

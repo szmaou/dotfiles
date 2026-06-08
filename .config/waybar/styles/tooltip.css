@@ -1,0 +1,24 @@
+@import "colors.css";
+
+tooltip {
+  border-radius: 12px;
+  background-color: @surface_container;
+  border: 1px solid alpha(@on_surface, 0.3);
+  padding: 8px 12px;
+}
+
+tooltip label {
+  color: @on_surface;
+  font-size: 0.9rem;
+}
+
+tooltip.background {
+  border-radius: 12px;
+  background-color: @surface_container;
+  border: 1px solid alpha(@on_surface, 0.3);
+}
+
+tooltip.background label {
+  color: @on_surface;
+  padding: 6px 10px;
+}

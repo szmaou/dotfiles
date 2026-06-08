@@ -1,0 +1,9 @@
+@define-color surface_container {{colors.surface_container.default.hex}};
+@define-color surface_container_highest {{colors.surface_container_highest.default.hex}};
+@define-color primary {{colors.primary.default.hex}};
+@define-color on_primary {{colors.on_primary.default.hex}};
+@define-color tertiary {{colors.tertiary.default.hex}};
+@define-color tertiary_fixed {{colors.tertiary_fixed.default.hex}};
+@define-color secondary_fixed_dim {{colors.secondary_fixed_dim.default.hex}};
+@define-color outline_variant {{colors.outline_variant.default.hex}};
+@define-color error_container {{colors.error_container.default.hex}};
