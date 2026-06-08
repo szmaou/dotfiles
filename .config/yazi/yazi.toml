@@ -1,7 +1,0 @@
-[opener]
-edit = [
-	{ run = '/usr/bin/nvim "$@"', desc = "$EDITOR", block = true, for = "unix" },
-]
-open = [
-  { run = 'xdg-open "$1"', desc = "Open", for = "linux" },
-]
