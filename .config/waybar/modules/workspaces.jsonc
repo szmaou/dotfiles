@@ -4,63 +4,49 @@
     "on-click": "activate",
     "window-rewrite-default": "",
     "window-rewrite": {
-      // Browser
-      "firefox": "",
-      "zen": "",
-      // Code / IDE
-      "class<code>": "󰨞",
-      "class<jetbrains-studio>": "󰀴",
-      "nvim": "",
-      "zed": "",
-      // Terminal / File Manager
-      "kitty": "󰆍",
-      "thunar": "",
-      "yazi": "󰇥",
-      // Office / Dokumen
-      "mousepad": "󱓧",
-      "onlyoffice": "󰏆",
-      // Media / Image
-      "imv": "󰄄",
-      "mpv": "",
-      "swappy": "󰄄",
-      "vlc": "󰕼",
-      // Social / Chat
-      "discord": "",
-      "vesktop": "",
-      "title<.*youtube.*>": "󰗃",
-      "title<.*whatsapp.*>": "󰖣",
-      "title<.*instagram.*>": "󰋾",
-      "title<.*facebook.*>": "󰈌",
-      "title<.*twitch.*>": "󰕃",
-      "title<.*telegram.*>": "",
-      // Game
+      // App
+      "class<firefox>": "",
+      "class<zen>": "",
+      "class<onlyoffice>": "󰏆",
+      "class<thunar>": "",
+      "class<discord>": "",
+      "class<vesktop>": "",
+      "class<spotify>": "",
       "class<Minecraft.*>": "󰍳",
       "class<org.freesmlauncher.FreesmLauncher>": "󰍳",
-      "steam": "󰓓",
-      // Musik
-      "spotify": "",
-      // Download
+      "class<steam>": "󰓓",
+      // Code/IDE & Tools
+      "class<code>": "󰨞",
+      "class<jetbrains-studio>": "󰀴",
+      "class<nvim>": "",
+      "class<zed>": "",
+      "class<kitty>": "󰆍",
+      "class<yazi>": "󰇥",
       "class<org.qbittorrent.qBittorrent>": "󰘿",
-      // Git
-      "title<.*codeberg.*>": "",
-      "title<.*github.*>": "󰊤",
-      "title<.*gitlab.*>": "",
-      "title<.*gitea.*>": "",
+      // Media / Image
+      "class<imv>": "󰄄",
+      "class<mpv>": "",
+      "class<swappy>": "󰄄",
+      "class<vlc>": "󰕼",
+      // on Browser
+      "class<zen> title<.*youtube.*>": "󰗃",
+      "class<zen> title<.*whatsapp.*>": "󰖣",
+      "class<zen> title<.*instagram.*>": "󰋾",
+      "class<zen> title<.*facebook.*>": "󰈌",
+      "class<zen> title<.*twitch.*>": "󰕃",
+      "class<zen> title<.*telegram.*>": "",
+      "class<zen> title<.*codeberg.*>": "",
+      "class<zen> title<.*github.*>": "󰊤",
+      "class<zen> title<.*gitlab.*>": "",
+      "class<zen> title<.*gitea.*>": "",
       // System / Utility
-      "assistant": "󰒓",
-      "blueman-manager": "",
-      "designer": "󰒓",
-      "linguist": "󰒓",
-      "nm-connection-editor": "󰐻",
-      "nwg-look": "󰒓",
-      "org.gnome.FileRoller": "",
-      "org.kde.kdeconnect.app": "󰦉",
-      "pavucontrol": "󱕂",
-      "pixeltool": "󰒓",
-      "qdbusviewer": "󰒓",
-      "qt5ct": "󰒓",
-      "qt6ct": "󰒓",
-      "xdg-desktop-portal-gtk": ""
+      "class<blueman-manager>": "",
+      "class<nm-connection-editor>": "󰐻",
+      "class<org.gnome.FileRoller>": "",
+      "class<org.pulseaudio.pavucontrol>": "󱕂",
+      "class<nwg-look>": "󰒓",
+      "class<qt5ct>": "󰒓",
+      "class<qt6ct.": "󰒓"
     },
     "workspace-taskbar": {
       "enable": false,
