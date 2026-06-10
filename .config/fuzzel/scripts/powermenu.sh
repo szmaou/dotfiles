@@ -10,7 +10,7 @@ case $choice in
             sleep 0.15
             hyprlock
         ) & ;;
-    *"Log Out") uwsm stop ;;
+    *"Log Out") loginctl terminate-user "" ;;
     *"Reboot") systemctl reboot ;;
     *"Shutdown") systemctl poweroff ;;
 esac

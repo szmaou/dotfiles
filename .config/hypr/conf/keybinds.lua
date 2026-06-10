@@ -10,12 +10,12 @@ hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd(run(taskManager)))
 -- #Utilities
 hl.bind("SUPER + A", hl.dsp.exec_cmd(launcher))
 hl.bind("SUPER + V", hl.dsp.exec_cmd(clipboard))
-hl.bind("SUPER + W", hl.dsp.exec_cmd(wallpaper))
+hl.bind("SUPER + W", hl.dsp.exec_cmd(run(wallpaper)))
 hl.bind("SUPER + Period", hl.dsp.exec_cmd("~/.config/fuzzel/scripts/emoji.sh"))
 hl.bind("SUPER + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
-hl.bind("SUPER + F1", hl.dsp.exec_cmd(run("pavucontrol")))
+hl.bind("SUPER + F1", hl.dsp.exec_cmd(run(volume)))
 hl.bind("SUPER + F12", hl.dsp.exec_cmd("~/.config/fuzzel/scripts/calculator.sh"))
-hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd(run("hyprpicker -a")))
+hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
 -- screenshots
 hl.bind(
 	"Print",
@@ -34,8 +34,8 @@ hl.bind("SUPER + mouse_down", hl.dsp.layout("move +col"))
 hl.bind("SUPER + Q", hl.dsp.window.close())
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind("SUPER + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
--- hl.bind("ALT + Tab", hl.dsp.exec_cmd("snappy-switcher next"))
--- hl.bind("ALT + SHIFT + Tab", hl.dsp.exec_cmd("snappy-switcher prev"))
+hl.bind("ALT + Tab", hl.dsp.exec_cmd("snappy-switcher next --mod alt"))
+hl.bind("ALT + SHIFT + Tab", hl.dsp.exec_cmd("snappy-switcher prev --mod alt"))
 
 -- move focus
 hl.bind("SUPER + left", hl.dsp.focus({ direction = "left" }))
@@ -85,12 +85,16 @@ hl.bind("SUPER + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd("~/.config/fuzzel/scripts/powermenu.sh"))
 
 -- #Multimedia
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"), { repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"), { repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("swayosd-client --output-volume lower"), { repeating = true })
+hl.bind(
+	"XF86AudioMute",
+	hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"),
+	{ locked = true, repeating = true }
+)
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("swayosd-client --playerctl next play-pause"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("swayosd-client --playerctl previoust"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("swayosd-client --playerctl next"), { locked = true })
 
 -- #Multimedia custom
 hl.bind("SUPER + F2", hl.dsp.exec_cmd("swayosd-client --output-volume lower"), { locked = true, repeating = true })

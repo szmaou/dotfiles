@@ -9,19 +9,14 @@
     "./modules/audio.jsonc",
     "./modules/connections.jsonc",
     "./modules/clock.jsonc",
-    "./modules/tray-notif.jsonc"
+    "./modules/tray-notif.jsonc",
   ],
-  "modules-left": [
-    "group/docks",
-    "mpris"
-  ],
-  "modules-center": [
-    "hyprland/workspaces"
-  ],
+  "modules-left": ["group/docks", "mpris"],
+  "modules-center": ["hyprland/workspaces"],
   "modules-right": [
     "group/audio",
     "group/connections",
     "clock",
-    "group/tray-notif"
-  ]
+    "group/tray-notif",
+  ],
 }

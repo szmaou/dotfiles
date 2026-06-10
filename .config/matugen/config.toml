@@ -67,6 +67,11 @@ output_path = '~/.config/zed/themes/matugen.json'
 #input_path = "~/.config/matugen/templates/zen.css"
 #output_path = "~/.zen/8hbky3tb.Default (release)/chrome/matugen.css"
 
+[templates.snappy_switcher]
+input_path = './templates/snappy-switcher.ini'
+output_path = '~/.config/snappy-switcher/themes/matugen.ini'
+post_hook = 'pkill -x snappy-switcher 2>/dev/null; nohup snappy-switcher --daemon > /dev/null 2>&1 &'
+
 [templates.vesktop]
 input_path = './templates/midnight-discord.css'
 output_path = '~/.config/vesktop/themes/midnight.css'
