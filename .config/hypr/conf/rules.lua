@@ -21,9 +21,6 @@ end
 hl.window_rule({ match = { title = "^(.*)(wants to save)$" }, float = true, center = true })
 hl.window_rule({ match = { title = "^(.*)(wants to open)$" }, float = true, center = true })
 
--- Share picker
-hl.window_rule({ match = { class = "^(hyprland-share-picker)$" }, float = true, center = true })
-
 -- Picture-in-Picture
 hl.window_rule({
 	match = { title = "^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$" },
@@ -33,6 +30,9 @@ hl.window_rule({
 	move = "(monitor_w * 0.73) (monitor_h * 0.72)",
 	size = "(monitor_w * 0.25) (monitor_h * 0.25)",
 })
+
+-- Share picker
+hl.window_rule({ match = { class = "^(hyprland-share-picker)$" }, float = true, center = true })
 
 -- Screen sharing
 hl.window_rule({
@@ -70,6 +70,14 @@ hl.workspace_rule({ workspace = "special:magic", gaps_out = 20 })
 -- App
 hl.window_rule({ match = { class = "vesktop" }, workspace = "special:magic" })
 hl.window_rule({ match = { class = "^(org.gnome.FileRoller)$" }, float = true, center = true })
+hl.window_rule({
+	match = { class = "kitty-float" },
+	float = true,
+	center = true,
+	size = { 500, 400 },
+	border_size = 2,
+	rounding = 0,
+})
 hl.window_rule({
 	match = { class = "^(org.pulseaudio.pavucontrol)$" },
 	float = true,

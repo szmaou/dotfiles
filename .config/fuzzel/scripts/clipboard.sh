@@ -10,8 +10,16 @@ match(\$0, /^([0-9]+)\s(\[\[\s)?binary.*(jpg|jpeg|png|bmp)/, grp) {
   cliphist_item_id=grp[1]
   ext=grp[3]
   thumbnail_file=cliphist_item_id"."ext
-  system("[ -f ${thumbnail_dir}/"thumbnail_file" ] || echo " cliphist_item_id "\\\\\t | cliphist decode >${thumbnail_dir}/"thumbnail_file)
-  print \$0"\0icon\x1f${thumbnail_dir}/"thumbnail_file
+  file_path="${thumbnail_dir}/"thumbnail_file
+  exists=0
+  if ((getline _ < file_path) >= 0) {
+    exists=1
+    close(file_path)
+  }
+  if (!exists) {
+    system("echo " cliphist_item_id "\\\\\t | cliphist decode > " file_path)
+  }
+  print \$0"\0icon\x1f"file_path
   next
 }
 1

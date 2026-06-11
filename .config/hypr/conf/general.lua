@@ -10,8 +10,8 @@ hl.monitor({
 -- General
 hl.config({
 	general = {
-		gaps_in = 4,
-		gaps_out = 5,
+		gaps_in = 2,
+		gaps_out = 3,
 
 		border_size = 1,
 		resize_on_border = true,
@@ -38,7 +38,7 @@ hl.config({
 		fullscreen_opacity = 1.0,
 
 		rounding_power = 2,
-		rounding = 10,
+		rounding = 5,
 
 		blur = {
 			enabled = true,
@@ -68,6 +68,11 @@ hl.config({
 		dim_inactive = true,
 		dim_strength = 0.05,
 		dim_special = 0.2,
+	},
+
+	-- Layout
+	dwindle = {
+		smart_split = true,
 	},
 	scrolling = {
 		explicit_column_widths = "0.5, 1.0",

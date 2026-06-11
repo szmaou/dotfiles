@@ -8,13 +8,15 @@ hl.bind("SUPER + C", hl.dsp.exec_cmd(run(codeEditor)))
 hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd(run(taskManager)))
 
 -- #Utilities
+hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd(run(floatTerm)))
 hl.bind("SUPER + A", hl.dsp.exec_cmd(launcher))
 hl.bind("SUPER + V", hl.dsp.exec_cmd(clipboard))
 hl.bind("SUPER + W", hl.dsp.exec_cmd(run(wallpaper)))
-hl.bind("SUPER + Period", hl.dsp.exec_cmd("~/.config/fuzzel/scripts/emoji.sh"))
+hl.bind("SUPER + Period", hl.dsp.exec_cmd(emoji))
 hl.bind("SUPER + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
+hl.bind("MENU", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
 hl.bind("SUPER + F1", hl.dsp.exec_cmd(run(volume)))
-hl.bind("SUPER + F12", hl.dsp.exec_cmd("~/.config/fuzzel/scripts/calculator.sh"))
+hl.bind("SUPER + F12", hl.dsp.exec_cmd(calculator))
 hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
 -- screenshots
 hl.bind(
@@ -82,7 +84,7 @@ hl.bind("SUPER + SHIFT + mouse_up", hl.dsp.window.move({ workspace = "-1" }))
 
 -- #Session
 hl.bind("SUPER + L", hl.dsp.exec_cmd("loginctl lock-session"))
-hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd("~/.config/fuzzel/scripts/powermenu.sh"))
+hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd(powermenu))
 
 -- #Multimedia
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"), { repeating = true })

@@ -15,6 +15,7 @@
 | Session manager  | [uwsm](https://github.com/Vladimir-csp/uwsm)                                                    |
 | Theme engine     | [matugen](https://github.com/InioX/matugen)                                                     |
 | Wallpaper engine | [awww](https://codeberg.org/LGFae/awww) + [waypaper](https://github.com/anufrievroman/waypaper) |
+| Window switchers | [snappy-switcher](https://github.com/OpalAayan/snappy-switcher)                                 |
 
 ### Credits
 
