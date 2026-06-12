@@ -23,7 +23,7 @@ hl.config({
 		no_focus_fallback = true,
 		allow_tearing = true, -- This just allows the `immediate` window rule to work
 
-		layout = "scrolling",
+		layout = "dwindle",
 
 		snap = {
 			enabled = true,
@@ -72,10 +72,11 @@ hl.config({
 
 	-- Layout
 	dwindle = {
-		smart_split = true,
+		preserve_split = true,
 	},
 	scrolling = {
-		explicit_column_widths = "0.5, 1.0",
+		column_width = 1.0,
+		direction = "down",
 	},
 })
 

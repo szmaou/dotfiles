@@ -9,7 +9,7 @@ hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd(run(taskManager)))
 
 -- #Utilities
 hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd(run(floatTerm)))
-hl.bind("SUPER + A", hl.dsp.exec_cmd(launcher))
+hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd(launcher), { release = true })
 hl.bind("SUPER + V", hl.dsp.exec_cmd(clipboard))
 hl.bind("SUPER + W", hl.dsp.exec_cmd(run(wallpaper)))
 hl.bind("SUPER + Period", hl.dsp.exec_cmd(emoji))
@@ -26,11 +26,20 @@ hl.bind(
 )
 hl.bind("CTRL + Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'), { locked = true })
 
--- #Scrolling layout
-hl.bind("ALT + right", hl.dsp.layout("swapcol r"))
-hl.bind("ALT + left", hl.dsp.layout("swapcol l"))
-hl.bind("SUPER + mouse_up", hl.dsp.layout("move -col"))
-hl.bind("SUPER + mouse_down", hl.dsp.layout("move +col"))
+-- #layout
+-- Scrolling
+-- hl.bind("ALT + up", hl.dsp.layout("swapcol r"))
+-- hl.bind("ALT + down", hl.dsp.layout("swapcol l"))
+-- hl.bind("SUPER + mouse_up", hl.dsp.layout("move +col"))
+-- hl.bind("SUPER + mouse_down", hl.dsp.layout("move -col"))
+
+-- Dwindle
+hl.bind("ALT + W", hl.dsp.window.pseudo())
+hl.bind("ALT + page_up", hl.dsp.layout("splitratio -0.1"), { repeating = true })
+hl.bind("ALT + A", hl.dsp.layout("togglesplit"))
+hl.bind("ALT + page_down", hl.dsp.layout("splitratio +0.1"), { repeating = true })
+hl.bind("ALT + S", hl.dsp.layout("swapsplit"))
+hl.bind("ALT + D", hl.dsp.layout("rotatesplit"))
 
 -- #Window
 hl.bind("SUPER + Q", hl.dsp.window.close())

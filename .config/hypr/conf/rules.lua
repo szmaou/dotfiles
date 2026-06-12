@@ -68,6 +68,7 @@ hl.layer_rule({ match = { namespace = "gtk-layer-shell" }, blur = true, ignore_a
 hl.workspace_rule({ workspace = "special:magic", gaps_out = 20 })
 
 -- App
+hl.window_rule({ match = { class = "DesktopEditors" }, float = true, center = true })
 hl.window_rule({ match = { class = "vesktop" }, workspace = "special:magic" })
 hl.window_rule({ match = { class = "^(org.gnome.FileRoller)$" }, float = true, center = true })
 hl.window_rule({
