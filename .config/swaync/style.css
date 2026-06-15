@@ -1,3 +1,11 @@
-@import "./css/colors.css";
-@import "./css/style.css";
-@import "./css/mpris.css";
+* {
+  all: unset;
+  font-size: 12px;
+  font-family: "Google Sans Medium";
+}
+
+.notification-background {
+  border-radius: 10px;
+  border: 2px solid black;
+  margin: 4px;
+}

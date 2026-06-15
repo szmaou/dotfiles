@@ -1,21 +1,71 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
   "logo": {
-    "source": "~/.config/fastfetch/ahego.txt",
-    "type": "auto"
+    "type": "file-raw",
+    "source": "~/.config/fastfetch/logo.txt",
+    "padding": {
+      "right": 2
+    },
+    "printRemaining": false
+  },
+  "display": {
+    "separator": "  ",
+    "key": {
+      "type": "icon"
+    },
+    "color": {
+      "keys": "cyan"
+    }
   },
   "modules": [
     "title",
     "separator",
-    "os",
-    "host",
-    "kernel",
-    "uptime",
-    "packages",
-    "cpu",
-    "gpu",
-    "memory",
-    "disk",
-    "localip",
+    {
+      "type": "os",
+      "keyIcon": ""
+    },
+    {
+      "type": "kernel",
+      "keyIcon": ""
+    },
+    {
+      "type": "uptime",
+      "keyIcon": ""
+    },
+    {
+      "type": "packages",
+      "keyIcon": "󰏖"
+    },
+    {
+      "type": "cpu",
+      "keyIcon": ""
+    },
+    {
+      "type": "gpu",
+      "keyIcon": "󰾲",
+      "detectionMethod": "pci",
+      "hideType": "none"
+    },
+    {
+      "type": "memory",
+      "keyIcon": ""
+    },
+    {
+      "type": "disk",
+      "keyIcon": "",
+      "folders": "/:/home:/mnt/data",
+      "showRegular": true,
+      "showExternal": false,
+      "showHidden": false,
+      "showSubvolumes": false
+    },
+    {
+      "type": "wm",
+      "keyIcon": ""
+    },
+    {
+      "type": "terminal",
+      "keyIcon": ""
+    }
   ]
 }

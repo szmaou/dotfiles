@@ -22,6 +22,10 @@ post_hook = '~/.config/matugen/scripts/gtk-themes-reload.sh'
 input_path = './templates/hyprqt6engine.conf'
 output_path = '~/.config/hypr/colors/qt6_colors_schema.conf'
 
+# [templates.quickshell]
+# input_path = './templates/quickshell.qml'
+# output_path = '~/.config/quickshell/colors.json'
+
 [templates.waybar]
 input_path = './templates/waybar.css'
 output_path = '~/.config/waybar/styles/colors.css'
@@ -43,7 +47,7 @@ post_hook = 'pkill -SIGUSR1 nvim 2>/dev/null || true'
 
 [templates.swaync]
 input_path = './templates/swaync.css'
-output_path = '~/.config/swaync/css/colors.css'
+output_path = '~/.config/swaync/colors.css'
 post_hook = 'swaync-client --reload-css'
 
 [templates.swayosd]
@@ -62,10 +66,6 @@ output_path = '~/.config/yazi/theme.toml'
 [templates.zed]
 input_path = './templates/zed-colors.json'
 output_path = '~/.config/zed/themes/matugen.json'
-
-#[templates.zen]
-#input_path = "~/.config/matugen/templates/zen.css"
-#output_path = "~/.zen/8hbky3tb.Default (release)/chrome/matugen.css"
 
 [templates.snappy_switcher]
 input_path = './templates/snappy-switcher.ini'

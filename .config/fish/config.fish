@@ -11,7 +11,7 @@ set -gx GOPATH "$HOME/.local/share/go"
 fish_add_path "$CARGO_HOME/bin" "$GOPATH/bin"
 
 # UWSM
-if status is-login; and test (tty) = "/dev/tty1"
+if status is-login; and test (tty) = /dev/tty1
     if uwsm check may-start
         exec uwsm start hyprland.desktop
     end
@@ -32,7 +32,6 @@ if status is-interactive
     alias s "pacman -Ss"
     alias pacs "sudo pacman -S"
     alias pars "paru -S"
-    alias qs "pacman -Qs"
     alias qi "pacman -Qi"
     alias qdt "pacman -Qdt"
     alias edit sudoedit
