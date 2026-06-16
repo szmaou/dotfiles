@@ -1,4 +1,4 @@
-local c = require("colors.colors")
+local c = require("colors.hyprland_colors")
 
 hl.monitor({
 	output = "",
