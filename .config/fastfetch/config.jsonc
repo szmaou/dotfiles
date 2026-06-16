@@ -1,71 +1,64 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
   "logo": {
-    "type": "file-raw",
     "source": "~/.config/fastfetch/logo.txt",
+    "type": "file",
     "padding": {
-      "right": 2
-    },
-    "printRemaining": false
-  },
-  "display": {
-    "separator": "  ",
-    "key": {
-      "type": "icon"
-    },
-    "color": {
-      "keys": "cyan"
+      "top": 1
     }
   },
+  "display": {
+    "separator": " "
+  },
   "modules": [
-    "title",
-    "separator",
+    "break",
+    {
+      "type": "title"
+    },
+    "break",
     {
       "type": "os",
-      "keyIcon": ""
+      "key": " ",
+      "keyColor": "34" // = color4
     },
     {
       "type": "kernel",
-      "keyIcon": ""
-    },
-    {
-      "type": "uptime",
-      "keyIcon": ""
+      "key": " ",
+      "keyColor": "34"
     },
     {
       "type": "packages",
-      "keyIcon": "󰏖"
+      "format": "{} (pacman)",
+      "key": " ",
+      "keyColor": "34"
     },
     {
-      "type": "cpu",
-      "keyIcon": ""
-    },
-    {
-      "type": "gpu",
-      "keyIcon": "󰾲",
-      "detectionMethod": "pci",
-      "hideType": "none"
-    },
-    {
-      "type": "memory",
-      "keyIcon": ""
-    },
-    {
-      "type": "disk",
-      "keyIcon": "",
-      "folders": "/:/home:/mnt/data",
-      "showRegular": true,
-      "showExternal": false,
-      "showHidden": false,
-      "showSubvolumes": false
+      "type": "shell",
+      "key": " ",
+      "keyColor": "34"
     },
     {
       "type": "wm",
-      "keyIcon": ""
+      "key": " ",
+      "keyColor": "34"
     },
     {
-      "type": "terminal",
-      "keyIcon": ""
-    }
+      "type": "cpu",
+      "key": "",
+      "format": " {1}",
+      "keyColor": "34"
+    },
+    {
+      "type": "gpu",
+      "key": "󰢮",
+      "format": " {1} {2}",
+      "keyColor": "34"
+    },
+    {
+      "type": "uptime",
+      "key": " ",
+      "keyColor": "34"
+    },
+    "break"
   ]
 }
