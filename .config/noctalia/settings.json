@@ -445,9 +445,9 @@
         "lockCommand": "qs -c noctalia-shell ipc call lockScreen lock",
         "lockTimeout": 900,
         "resumeLockCommand": "",
-        "resumeScreenOffCommand": "",
+        "resumeScreenOffCommand": "qs -c noctalia-shell ipc call monitors on",
         "resumeSuspendCommand": "",
-        "screenOffCommand": "qs -c noctalia-shell ipc call dpms off",
+        "screenOffCommand": "qs -c noctalia-shell ipc call monitors off",
         "screenOffTimeout": 1800,
         "suspendCommand": "",
         "suspendTimeout": 3600
