@@ -230,7 +230,7 @@
         "backlightDeviceMappings": [
         ],
         "brightnessStep": 5,
-        "enableDdcSupport": false,
+        "enableDdcSupport": true,
         "enforceMinimum": true
     },
     "calendar": {
@@ -440,17 +440,17 @@
     },
     "idle": {
         "customCommands": "[]",
-        "enabled": false,
+        "enabled": true,
         "fadeDuration": 5,
-        "lockCommand": "",
-        "lockTimeout": 660,
+        "lockCommand": "qs -c noctalia-shell ipc call lockScreen lock",
+        "lockTimeout": 900,
         "resumeLockCommand": "",
         "resumeScreenOffCommand": "",
         "resumeSuspendCommand": "",
-        "screenOffCommand": "",
-        "screenOffTimeout": 600,
+        "screenOffCommand": "qs -c noctalia-shell ipc call dpms off",
+        "screenOffTimeout": 1800,
         "suspendCommand": "",
-        "suspendTimeout": 1800
+        "suspendTimeout": 3600
     },
     "location": {
         "analogClockInCalendar": false,
