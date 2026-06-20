@@ -1,30 +1,48 @@
-require("conf.variables")
+-- #Variables
+local ipc = "qs -c noctalia-shell ipc call "
+local uwsm = "runapp "
+local terminal = "kitty"
+local codeEditor = "zeditor"
+local fileManager = "thunar"
+local browser = "zen-browser"
+local taskManager = "kitty -1 btop"
+local floatTerm = "~/.config/hypr/scripts/kitty-float-toggle.sh"
 
 -- #Apps
-hl.bind("SUPER + Return", hl.dsp.exec_cmd(run(terminal)))
-hl.bind("SUPER + E", hl.dsp.exec_cmd(run(fileManager)))
-hl.bind("SUPER + B", hl.dsp.exec_cmd(run(browser)))
-hl.bind("SUPER + C", hl.dsp.exec_cmd(run(codeEditor)))
-hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd(run(taskManager)))
+hl.bind("SUPER + Return", hl.dsp.exec_cmd(uwsm .. terminal))
+hl.bind("SUPER + E", hl.dsp.exec_cmd(uwsm .. fileManager))
+hl.bind("SUPER + B", hl.dsp.exec_cmd(uwsm .. browser))
+hl.bind("SUPER + C", hl.dsp.exec_cmd(uwsm .. codeEditor))
+hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd(uwsm .. taskManager))
+hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd(uwsm .. floatTerm))
 
 -- #Utilities
-hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd(run(floatTerm)))
-hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd(launcher), { release = true })
-hl.bind("SUPER + V", hl.dsp.exec_cmd(clipboard))
-hl.bind("SUPER + W", hl.dsp.exec_cmd(run(wallpaper)))
-hl.bind("SUPER + Period", hl.dsp.exec_cmd(emoji))
-hl.bind("SUPER + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
-hl.bind("MENU", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
-hl.bind("SUPER + F1", hl.dsp.exec_cmd(run(volume)))
-hl.bind("SUPER + F12", hl.dsp.exec_cmd(calculator))
-hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
+hl.bind("MENU", hl.dsp.exec_cmd(ipc .. "bar toggle"))
+hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd(ipc .. "launcher toggle"), { release = true })
+hl.bind("SUPER + N", hl.dsp.exec_cmd(ipc .. "controlCenter toggle"))
+hl.bind("SUPER + I", hl.dsp.exec_cmd(ipc .. "settings toggle"))
+hl.bind("SUPER + V", hl.dsp.exec_cmd(ipc .. "launcher clipboard"))
+hl.bind("SUPER + Period", hl.dsp.exec_cmd(ipc .. "launcher emoji"))
+hl.bind("SUPER + R", hl.dsp.exec_cmd(ipc .. "launcher command"))
+hl.bind("SUPER + W", hl.dsp.exec_cmd(ipc .. "wallpaper toggle"))
+hl.bind("SUPER + F12", hl.dsp.exec_cmd(ipc .. "plugin togglePanel noctalia-calculator"))
+hl.bind("CTRL + ALT + C", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call plugin:screen-toolkit colorPicker"))
 -- screenshots
 hl.bind(
 	"Print",
-	hl.dsp.exec_cmd("grim - | wl-copy && grim ~/Pictures/Screenshots/Screenshot_\"$(date '+%Y-%m-%d_%H.%M.%S')\".png"),
-	{ locked = true, non_consuming = true }
+	hl.dsp.exec_cmd("qs -c noctalia-shell ipc call plugin:screen-toolkit annotateFullscreen"),
+	{ non_consuming = true }
 )
-hl.bind("CTRL + Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'), { locked = true })
+hl.bind(
+	"ALT + Print",
+	hl.dsp.exec_cmd("qs -c noctalia-shell ipc call plugin:screen-toolkit annotate"),
+	{ non_consuming = true }
+)
+hl.bind(
+	"CTRL + ALT + Print",
+	hl.dsp.exec_cmd("qs -c noctalia-shell ipc call plugin:screen-toolkit annotateWindow"),
+	{ non_consuming = true }
+)
 
 -- #layout
 -- Scrolling
@@ -45,8 +63,8 @@ hl.bind("ALT + D", hl.dsp.layout("rotatesplit"))
 hl.bind("SUPER + Q", hl.dsp.window.close())
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind("SUPER + A", hl.dsp.window.float({ action = "toggle" }))
-hl.bind("ALT + Tab", hl.dsp.exec_cmd("snappy-switcher next --mod alt"))
-hl.bind("ALT + SHIFT + Tab", hl.dsp.exec_cmd("snappy-switcher prev --mod alt"))
+-- hl.bind("ALT + Tab", hl.dsp.exec_cmd("snappy-switcher next --mod alt"))
+-- hl.bind("ALT + SHIFT + Tab", hl.dsp.exec_cmd("snappy-switcher prev --mod alt"))
 
 -- move focus
 hl.bind("SUPER + left", hl.dsp.focus({ direction = "left" }))
@@ -57,7 +75,6 @@ hl.bind("SUPER + down", hl.dsp.focus({ direction = "down" }))
 -- move/resize window
 hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
-hl.bind("ALT + R", hl.dsp.layout("colresize +conf"))
 
 -- minimize
 hl.bind("SUPER + M", function()
@@ -92,32 +109,27 @@ hl.bind("SUPER + SHIFT + mouse_down", hl.dsp.window.move({ workspace = "+1" }))
 hl.bind("SUPER + SHIFT + mouse_up", hl.dsp.window.move({ workspace = "-1" }))
 
 -- #Session
-hl.bind("SUPER + L", hl.dsp.exec_cmd("loginctl lock-session"))
-hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd(powermenu))
+hl.bind("SUPER + L", hl.dsp.exec_cmd(ipc .. " lockScreen lock"))
+hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd(ipc .. " sessionMenu toggle"))
 
 -- #Multimedia
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"), { repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("swayosd-client --output-volume lower"), { repeating = true })
-hl.bind(
-	"XF86AudioMute",
-	hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"),
-	{ locked = true, repeating = true }
-)
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("swayosd-client --playerctl next play-pause"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("swayosd-client --playerctl previoust"), { locked = true })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("swayosd-client --playerctl next"), { locked = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(ipc .. "volume increase"), { repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(ipc .. "volume decrease"), { repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd(ipc .. "volume muteOutput"), { locked = true, repeating = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(ipc .. "media playPause"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd(ipc .. "media next"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(ipc .. "media previous"), { locked = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(ipc .. "brightness increase"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness decrease"), { locked = true, repeating = true })
 
 -- #Multimedia custom
-hl.bind("SUPER + F2", hl.dsp.exec_cmd("swayosd-client --output-volume lower"), { locked = true, repeating = true })
-hl.bind("SUPER + F3", hl.dsp.exec_cmd("swayosd-client --output-volume raise"), { locked = true, repeating = true })
-hl.bind(
-	"SUPER + F4",
-	hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"),
-	{ locked = true, repeating = true }
-)
-hl.bind("SUPER + F5", hl.dsp.exec_cmd("swayosd-client --playerctl stop"), { locked = true })
-hl.bind("SUPER + F6", hl.dsp.exec_cmd("swayosd-client --playerctl previous"), { locked = true })
-hl.bind("SUPER + F7", hl.dsp.exec_cmd("swayosd-client --playerctl play-pause"), { locked = true })
-hl.bind("SUPER + F8", hl.dsp.exec_cmd("swayosd-client --playerctl next"), { locked = true })
-hl.bind("SUPER + page_up", hl.dsp.exec_cmd("swayosd-client --brightness +10 && ddcutil setvcp 10 + 10"))
-hl.bind("SUPER + page_down", hl.dsp.exec_cmd("swayosd-client --brightness -10 && ddcutil setvcp 10 - 10"))
+hl.bind("SUPER + F1", hl.dsp.exec_cmd(ipc .. "volume togglePanel"))
+hl.bind("SUPER + F2", hl.dsp.exec_cmd(ipc .. "volume decrease"), { locked = true, repeating = true })
+hl.bind("SUPER + F3", hl.dsp.exec_cmd(ipc .. "volume increase"), { locked = true, repeating = true })
+hl.bind("SUPER + F4", hl.dsp.exec_cmd(ipc .. "volume muteOutput"), { locked = true, repeating = true })
+hl.bind("SUPER + F5", hl.dsp.exec_cmd(ipc .. "media pause"), { locked = true })
+hl.bind("SUPER + F6", hl.dsp.exec_cmd(ipc .. "media previous"), { locked = true })
+hl.bind("SUPER + F7", hl.dsp.exec_cmd(ipc .. "media playPause"), { locked = true })
+hl.bind("SUPER + F8", hl.dsp.exec_cmd(ipc .. "media next"), { locked = true })
+hl.bind("SUPER + page_up", hl.dsp.exec_cmd(ipc .. "brightness increase"), { locked = true, repeating = true })
+hl.bind("SUPER + page_down", hl.dsp.exec_cmd(ipc .. "brightness decrease"), { locked = true, repeating = true })
