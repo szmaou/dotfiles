@@ -41,11 +41,11 @@ hl.bind("CTRL + ALT + Print", hl.dsp.exec_cmd(ipc .. "plugin:screen-toolkit anno
 
 -- Dwindle
 hl.bind("ALT + W", hl.dsp.window.pseudo())
-hl.bind("ALT + page_up", hl.dsp.layout("splitratio -0.1"), { repeating = true })
 hl.bind("ALT + A", hl.dsp.layout("togglesplit"))
-hl.bind("ALT + page_down", hl.dsp.layout("splitratio +0.1"), { repeating = true })
 hl.bind("ALT + S", hl.dsp.layout("swapsplit"))
 hl.bind("ALT + D", hl.dsp.layout("rotatesplit"))
+hl.bind("ALT + page_up", hl.dsp.layout("splitratio -0.1"), { repeating = true })
+hl.bind("ALT + page_down", hl.dsp.layout("splitratio +0.1"), { repeating = true })
 
 -- #Window
 hl.bind("SUPER + Q", hl.dsp.window.close())
@@ -101,9 +101,9 @@ hl.bind("SUPER + L", hl.dsp.exec_cmd(ipc .. " lockScreen lock"))
 hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd(ipc .. " sessionMenu toggle"))
 
 -- #Multimedia
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(ipc .. "volume increase"), { repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(ipc .. "volume decrease"), { repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd(ipc .. "volume muteOutput"), { locked = true, repeating = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(ipc .. "volume increase"), { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(ipc .. "volume decrease"), { locked = true, repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd(ipc .. "volume muteOutput"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(ipc .. "media playPause"), { locked = true })
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd(ipc .. "media next"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(ipc .. "media previous"), { locked = true })
@@ -114,7 +114,7 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness decrease"), 
 hl.bind("SUPER + F1", hl.dsp.exec_cmd(ipc .. "volume togglePanel"))
 hl.bind("SUPER + F2", hl.dsp.exec_cmd(ipc .. "volume decrease"), { locked = true, repeating = true })
 hl.bind("SUPER + F3", hl.dsp.exec_cmd(ipc .. "volume increase"), { locked = true, repeating = true })
-hl.bind("SUPER + F4", hl.dsp.exec_cmd(ipc .. "volume muteOutput"), { locked = true, repeating = true })
+hl.bind("SUPER + F4", hl.dsp.exec_cmd(ipc .. "volume muteOutput"), { locked = true })
 hl.bind("SUPER + F5", hl.dsp.exec_cmd(ipc .. "media pause"), { locked = true })
 hl.bind("SUPER + F6", hl.dsp.exec_cmd(ipc .. "media previous"), { locked = true })
 hl.bind("SUPER + F7", hl.dsp.exec_cmd(ipc .. "media playPause"), { locked = true })
