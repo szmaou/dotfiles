@@ -53,16 +53,20 @@ hl.window_rule({ match = { class = "^dev\\.warp\\.Warp$" }, tile = true })
 -- No shadow for non-floating windows
 hl.window_rule({ match = { float = false }, no_shadow = true })
 
--- Fix JetBrains IDEs focus / rerendering
-hl.window_rule({
-	match = { class = "^jetbrains-.*$", float = true, title = "^$|^\\s$|^win\\d+$" },
-	no_initial_focus = true,
-})
-
 -- Layer rules
 hl.layer_rule({ match = { namespace = "hyprpicker" }, no_anim = true })
 hl.layer_rule({ match = { namespace = "gtk4-layer-shell" }, no_anim = true })
 hl.layer_rule({ match = { namespace = "gtk-layer-shell" }, blur = true, ignore_alpha = 0 })
+hl.layer_rule({
+	name = "noctalia",
+	match = {
+		namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd)$",
+	},
+	no_anim = true,
+	ignore_alpha = 0.5,
+	blur = true,
+	blur_popups = true,
+})
 
 -- Workspace rules
 hl.workspace_rule({ workspace = "special:magic", gaps_out = 20 })
@@ -71,6 +75,11 @@ hl.workspace_rule({ workspace = "special:magic", gaps_out = 20 })
 hl.window_rule({ match = { class = "DesktopEditors" }, float = true, center = true })
 hl.window_rule({ match = { class = "vesktop" }, workspace = "special:magic" })
 hl.window_rule({ match = { class = "^(org.gnome.FileRoller)$" }, float = true, center = true })
+-- Fix JetBrains IDEs focus / rerendering
+hl.window_rule({
+	match = { class = "^jetbrains-.*$", float = true, title = "^$|^\\s$|^win\\d+$" },
+	no_initial_focus = true,
+})
 hl.window_rule({
 	match = { class = "kitty-float" },
 	float = true,
@@ -84,14 +93,4 @@ hl.window_rule({
 	float = true,
 	center = true,
 	size = "(monitor_w * 0.45) (monitor_h * 0.45)",
-})
-hl.layer_rule({
-	name = "noctalia",
-	match = {
-		namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd)$",
-	},
-	no_anim = true,
-	ignore_alpha = 0.5,
-	blur = true,
-	blur_popups = true,
 })

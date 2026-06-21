@@ -2,7 +2,6 @@
 local ipc = "qs -c noctalia-shell ipc call "
 local uwsm = "runapp "
 local terminal = "kitty"
-local codeEditor = "zeditor"
 local fileManager = "thunar"
 local browser = "zen-browser"
 local taskManager = "kitty -1 btop"
@@ -12,37 +11,26 @@ local floatTerm = "~/.config/hypr/scripts/kitty-float-toggle.sh"
 hl.bind("SUPER + Return", hl.dsp.exec_cmd(uwsm .. terminal))
 hl.bind("SUPER + E", hl.dsp.exec_cmd(uwsm .. fileManager))
 hl.bind("SUPER + B", hl.dsp.exec_cmd(uwsm .. browser))
-hl.bind("SUPER + C", hl.dsp.exec_cmd(uwsm .. codeEditor))
 hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd(uwsm .. taskManager))
 hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd(uwsm .. floatTerm))
 
 -- #Utilities
 hl.bind("MENU", hl.dsp.exec_cmd(ipc .. "bar toggle"))
 hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd(ipc .. "launcher toggle"), { release = true })
-hl.bind("SUPER + N", hl.dsp.exec_cmd(ipc .. "controlCenter toggle"))
+hl.bind("SUPER + C", hl.dsp.exec_cmd(ipc .. "controlCenter toggle"))
 hl.bind("SUPER + I", hl.dsp.exec_cmd(ipc .. "settings toggle"))
 hl.bind("SUPER + V", hl.dsp.exec_cmd(ipc .. "launcher clipboard"))
 hl.bind("SUPER + Period", hl.dsp.exec_cmd(ipc .. "launcher emoji"))
 hl.bind("SUPER + R", hl.dsp.exec_cmd(ipc .. "launcher command"))
 hl.bind("SUPER + W", hl.dsp.exec_cmd(ipc .. "wallpaper toggle"))
+hl.bind("SUPER + N", hl.dsp.exec_cmd(ipc .. "notifications toggleHistory"))
+hl.bind("SUPER + A", hl.dsp.exec_cmd(ipc .. "plugin:assistant-panel toggle"))
 hl.bind("SUPER + F12", hl.dsp.exec_cmd(ipc .. "plugin togglePanel noctalia-calculator"))
-hl.bind("CTRL + ALT + C", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call plugin:screen-toolkit colorPicker"))
+hl.bind("CTRL + ALT + C", hl.dsp.exec_cmd(ipc .. "plugin:screen-toolkit colorPicker"))
 -- screenshots
-hl.bind(
-	"Print",
-	hl.dsp.exec_cmd("qs -c noctalia-shell ipc call plugin:screen-toolkit annotateFullscreen"),
-	{ non_consuming = true }
-)
-hl.bind(
-	"ALT + Print",
-	hl.dsp.exec_cmd("qs -c noctalia-shell ipc call plugin:screen-toolkit annotate"),
-	{ non_consuming = true }
-)
-hl.bind(
-	"CTRL + ALT + Print",
-	hl.dsp.exec_cmd("qs -c noctalia-shell ipc call plugin:screen-toolkit annotateWindow"),
-	{ non_consuming = true }
-)
+hl.bind("Print", hl.dsp.exec_cmd(ipc .. "plugin:screen-toolkit annotateFullscreen"), { non_consuming = true })
+hl.bind("ALT + Print", hl.dsp.exec_cmd(ipc .. "plugin:screen-toolkit annotate"), { non_consuming = true })
+hl.bind("CTRL + ALT + Print", hl.dsp.exec_cmd(ipc .. "plugin:screen-toolkit annotateWindow"), { non_consuming = true })
 
 -- #layout
 -- Scrolling
@@ -62,7 +50,7 @@ hl.bind("ALT + D", hl.dsp.layout("rotatesplit"))
 -- #Window
 hl.bind("SUPER + Q", hl.dsp.window.close())
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({ action = "toggle" }))
-hl.bind("SUPER + A", hl.dsp.window.float({ action = "toggle" }))
+hl.bind("SUPER + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
 -- hl.bind("ALT + Tab", hl.dsp.exec_cmd("snappy-switcher next --mod alt"))
 -- hl.bind("ALT + SHIFT + Tab", hl.dsp.exec_cmd("snappy-switcher prev --mod alt"))
 

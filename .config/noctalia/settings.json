@@ -42,7 +42,7 @@
     "bar": {
         "autoHideDelay": 500,
         "autoShowDelay": 150,
-        "backgroundOpacity": 0.93,
+        "backgroundOpacity": 0.3,
         "barType": "simple",
         "capsuleColorKey": "secondary",
         "capsuleOpacity": 0.25,
@@ -155,7 +155,7 @@
                     "showArtistFirst": true,
                     "showProgressRing": true,
                     "showVisualizer": false,
-                    "textColor": "tertiary",
+                    "textColor": "primary",
                     "useFixedWidth": false,
                     "visualizerType": "linear"
                 }
@@ -189,6 +189,24 @@
                     "showPowerProfiles": false
                 },
                 {
+                    "defaultSettings": {
+                        "colorHistory": [
+                        ],
+                        "detectedRecorder": "",
+                        "filenameFormat": "",
+                        "gifMaxSeconds": 30,
+                        "installedLangs": [
+                            "eng"
+                        ],
+                        "paletteColors": [
+                        ],
+                        "recordCopyToClipboard": false,
+                        "recordSkipConfirmation": false,
+                        "screenshotPath": "",
+                        "selectedOcrLang": "eng",
+                        "transAvailable": false,
+                        "videoPath": ""
+                    },
                     "id": "plugin:screen-toolkit"
                 },
                 {
@@ -398,7 +416,7 @@
         ],
         "lockScreenTint": 0,
         "passwordChars": true,
-        "radiusRatio": 1,
+        "radiusRatio": 0.5,
         "reverseScroll": false,
         "scaleRatio": 0.8,
         "screenRadiusRatio": 1,
@@ -502,7 +520,7 @@
         "sounds": {
             "criticalSoundFile": "",
             "enabled": true,
-            "excludedApps": "discord,firefox,chrome,chromium,edge",
+            "excludedApps": "vesktop,discord,firefox,chrome,chromium,edge",
             "lowSoundFile": "",
             "normalSoundFile": "",
             "separateSounds": false,
@@ -651,6 +669,14 @@
             {
                 "enabled": true,
                 "id": "zenBrowser"
+            },
+            {
+                "enabled": true,
+                "id": "cava"
+            },
+            {
+                "enabled": true,
+                "id": "spicetify"
             }
         ],
         "enableUserTheming": true
