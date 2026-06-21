@@ -99,6 +99,10 @@ Item {
       "name": pluginApi?.tr("languages.uk")
     },
     {
+      "code": "id",
+      "name": pluginApi?.tr("languages.id")
+    },
+    {
       "code": "vi",
       "name": pluginApi?.tr("languages.vi")
     }
