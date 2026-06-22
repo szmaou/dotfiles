@@ -178,6 +178,8 @@
     "shareSection":         "Share",
     "x02ApiKey":            "X02 API Key",
     "x02ApiKeyDesc":        "Optional. Get a free key at x02.me for permanent links and larger files. Without a key, uploads use uguu.se (anonymous, 3h, 128MB max).",
+    "apiKeyManagedByEnv":   "Managed via environment variable",
+    "apiKeyEnvPlaceholder": "Set via environment variable",
     "x02Expiry":            "Link Expiry",
     "x02ExpiryDesc":        "How long your shared links stay alive. Permanent links never expire. Only applies when using an X02 API key.",
     "expiry1h":             "1 hour",

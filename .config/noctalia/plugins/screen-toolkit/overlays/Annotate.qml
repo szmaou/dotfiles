@@ -1647,7 +1647,9 @@ Variants {
             }
         }
         function _doUpload(file) {
-            var apiKey     = (root.mainInstance?.pluginApi?.pluginSettings?.x02ApiKey ?? "").trim()
+            var settings  = root.mainInstance?.pluginApi?.pluginSettings
+            var envKey    = Quickshell.env("NOCTALIA_ST_X02_API_KEY") || ""
+            var apiKey    = (envKey || settings?.x02ApiKey || "").trim()
             var expiry     = (root.mainInstance?.pluginApi?.pluginSettings?.x02Expiry ?? "7d").trim()
             var scriptPath = Qt.resolvedUrl("../scripts/share-upload.sh").toString().replace("file://", "")
             uploadProc.exec({ command: ["bash", scriptPath, file, apiKey, expiry] })

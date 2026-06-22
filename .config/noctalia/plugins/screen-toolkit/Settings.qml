@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
 import qs.Commons
 import qs.Widgets
 
@@ -13,6 +14,7 @@ ColumnLayout {
     property string filenameFormat:         ""
     property string x02ApiKey:             ""
     property string x02Expiry:             "7d"
+    readonly property bool _x02KeyFromEnv: Quickshell.env("NOCTALIA_ST_X02_API_KEY", "") !== ""
     property bool   shareSkipPopover:      false
     property bool   recordSkipConfirmation: false
     property bool   recordCopyToClipboard:  false
@@ -33,7 +35,7 @@ ColumnLayout {
         screenshotPath         = pluginApi.pluginSettings.screenshotPath         || ""
         videoPath              = pluginApi.pluginSettings.videoPath              || ""
         filenameFormat         = pluginApi.pluginSettings.filenameFormat         || ""
-        x02ApiKey              = pluginApi.pluginSettings.x02ApiKey              || ""
+        x02ApiKey              = root._x02KeyFromEnv ? Quickshell.env("NOCTALIA_ST_X02_API_KEY") : (pluginApi.pluginSettings.x02ApiKey || "")
         x02Expiry              = pluginApi.pluginSettings.x02Expiry              || "7d"
         shareSkipPopover       = pluginApi.pluginSettings.shareSkipPopover       ?? false
         recordSkipConfirmation = pluginApi.pluginSettings.recordSkipConfirmation ?? false
@@ -51,7 +53,8 @@ ColumnLayout {
         pluginApi.pluginSettings.screenshotPath         = root.screenshotPath
         pluginApi.pluginSettings.videoPath              = root.videoPath
         pluginApi.pluginSettings.filenameFormat         = root.filenameFormat
-        pluginApi.pluginSettings.x02ApiKey              = root.x02ApiKey
+        if (!root._x02KeyFromEnv)
+            pluginApi.pluginSettings.x02ApiKey              = root.x02ApiKey
         pluginApi.pluginSettings.x02Expiry              = root.x02Expiry
         pluginApi.pluginSettings.shareSkipPopover       = root.shareSkipPopover
         pluginApi.pluginSettings.recordSkipConfirmation = root.recordSkipConfirmation
@@ -222,10 +225,11 @@ ColumnLayout {
         NTextInput {
             Layout.fillWidth: true
             label:           pluginApi?.tr("settings.x02ApiKey")
-            description:     pluginApi?.tr("settings.x02ApiKeyDesc")
-            placeholderText: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-            text:            root.x02ApiKey
-            onTextChanged:   { root.x02ApiKey = text; saveSettings() }
+            description:     root._x02KeyFromEnv ? pluginApi?.tr("settings.apiKeyManagedByEnv") : pluginApi?.tr("settings.x02ApiKeyDesc")
+            placeholderText: root._x02KeyFromEnv ? pluginApi?.tr("settings.apiKeyEnvPlaceholder") : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            text:            root._x02KeyFromEnv ? "" : root.x02ApiKey
+            enabled:         !root._x02KeyFromEnv
+            onTextChanged:   { if (!root._x02KeyFromEnv) { root.x02ApiKey = text; saveSettings() } }
         }
 
         // Expiry — only relevant when API key is set
