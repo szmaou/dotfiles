@@ -3,6 +3,3 @@ export ELECTRON_OZONE_PLATFORM_HINT=auto
 export GDK_BACKEND="wayland,x11"
 export QT_QPA_PLATFORM="wayland;xcb"
 export CLUTTER_BACKEND=wayland
-
-# Qt configuration
-export QT_QPA_PLATFORMTHEME=hyprqt6engine

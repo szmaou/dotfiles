@@ -1,5 +1,5 @@
 -- #Variables
-local ipc = "qs -c noctalia-shell ipc call "
+local ipc = "noctalia msg "
 local uwsm = "runapp "
 local terminal = "kitty"
 local fileManager = "thunar"
@@ -15,16 +15,17 @@ hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd(uwsm .. taskManager))
 hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd(uwsm .. floatTerm))
 
 -- #Utilities
-hl.bind("MENU", hl.dsp.exec_cmd(ipc .. "bar toggle"))
-hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd(ipc .. "launcher toggle"), { release = true })
-hl.bind("SUPER + C", hl.dsp.exec_cmd(ipc .. "controlCenter toggle"))
-hl.bind("SUPER + I", hl.dsp.exec_cmd(ipc .. "settings toggle"))
-hl.bind("SUPER + V", hl.dsp.exec_cmd(ipc .. "launcher clipboard"))
-hl.bind("SUPER + Period", hl.dsp.exec_cmd(ipc .. "launcher emoji"))
+hl.bind("MENU", hl.dsp.exec_cmd(ipc .. "bar-toggle"))
+hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"), { release = true })
+hl.bind("SUPER + C", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
+hl.bind("SUPER + I", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
+hl.bind("SUPER + V", hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard"))
+hl.bind("SUPER + Period", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher '/emo '"))
 hl.bind("SUPER + R", hl.dsp.exec_cmd(ipc .. "launcher command"))
-hl.bind("SUPER + W", hl.dsp.exec_cmd(ipc .. "wallpaper toggle"))
-hl.bind("SUPER + N", hl.dsp.exec_cmd(ipc .. "notifications toggleHistory"))
+hl.bind("SUPER + W", hl.dsp.exec_cmd(ipc .. "panel-toggle wallpaper"))
+hl.bind("SUPER + N", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center notifications"))
 hl.bind("SUPER + A", hl.dsp.exec_cmd(ipc .. "plugin:assistant-panel toggle"))
+hl.bind("SUPER + F1", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center audio"))
 hl.bind("SUPER + F12", hl.dsp.exec_cmd(ipc .. "plugin togglePanel noctalia-calculator"))
 hl.bind("CTRL + ALT + C", hl.dsp.exec_cmd(ipc .. "plugin:screen-toolkit colorPicker"))
 -- screenshots
@@ -97,27 +98,26 @@ hl.bind("SUPER + SHIFT + mouse_down", hl.dsp.window.move({ workspace = "+1" }))
 hl.bind("SUPER + SHIFT + mouse_up", hl.dsp.window.move({ workspace = "-1" }))
 
 -- #Session
-hl.bind("SUPER + L", hl.dsp.exec_cmd(ipc .. " lockScreen lock"))
-hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd(ipc .. " sessionMenu toggle"))
+hl.bind("SUPER + L", hl.dsp.exec_cmd(ipc .. "session lock"))
+hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd(ipc .. "panel-toggle session"))
 
 -- #Multimedia
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(ipc .. "volume increase"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(ipc .. "volume decrease"), { locked = true, repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd(ipc .. "volume muteOutput"), { locked = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(ipc .. "volume-up"), { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(ipc .. "volume-down"), { locked = true, repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd(ipc .. "volume-mute"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(ipc .. "media playPause"), { locked = true })
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd(ipc .. "media next"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(ipc .. "media previous"), { locked = true })
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(ipc .. "brightness increase"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness decrease"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(ipc .. "brightness-up"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness-down"), { locked = true, repeating = true })
 
 -- #Multimedia custom
-hl.bind("SUPER + F1", hl.dsp.exec_cmd(ipc .. "volume togglePanel"))
-hl.bind("SUPER + F2", hl.dsp.exec_cmd(ipc .. "volume decrease"), { locked = true, repeating = true })
-hl.bind("SUPER + F3", hl.dsp.exec_cmd(ipc .. "volume increase"), { locked = true, repeating = true })
-hl.bind("SUPER + F4", hl.dsp.exec_cmd(ipc .. "volume muteOutput"), { locked = true })
-hl.bind("SUPER + F5", hl.dsp.exec_cmd(ipc .. "media pause"), { locked = true })
+hl.bind("SUPER + F2", hl.dsp.exec_cmd(ipc .. "volume-down"), { locked = true, repeating = true })
+hl.bind("SUPER + F3", hl.dsp.exec_cmd(ipc .. "volume-up"), { locked = true, repeating = true })
+hl.bind("SUPER + F4", hl.dsp.exec_cmd(ipc .. "volume-mute"), { locked = true })
+hl.bind("SUPER + F5", hl.dsp.exec_cmd(ipc .. "media stop"), { locked = true })
 hl.bind("SUPER + F6", hl.dsp.exec_cmd(ipc .. "media previous"), { locked = true })
-hl.bind("SUPER + F7", hl.dsp.exec_cmd(ipc .. "media playPause"), { locked = true })
+hl.bind("SUPER + F7", hl.dsp.exec_cmd(ipc .. "media toggle"), { locked = true })
 hl.bind("SUPER + F8", hl.dsp.exec_cmd(ipc .. "media next"), { locked = true })
-hl.bind("SUPER + page_up", hl.dsp.exec_cmd(ipc .. "brightness increase"), { locked = true, repeating = true })
-hl.bind("SUPER + page_down", hl.dsp.exec_cmd(ipc .. "brightness decrease"), { locked = true, repeating = true })
+hl.bind("SUPER + page_up", hl.dsp.exec_cmd(ipc .. "brightness-up"), { locked = true, repeating = true })
+hl.bind("SUPER + page_down", hl.dsp.exec_cmd(ipc .. "brightness-down"), { locked = true, repeating = true })
