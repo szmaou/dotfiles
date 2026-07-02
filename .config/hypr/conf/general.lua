@@ -45,12 +45,12 @@ hl.config({
 			xray = true,
 			special = false,
 			new_optimizations = true,
-			size = 10,
-			passes = 3,
+			size = 3,
+			passes = 2,
 			brightness = 1,
 			noise = 0.05,
 			contrast = 0.89,
-			vibrancy = 0.5,
+			vibrancy = 0.1696,
 			vibrancy_darkness = 0.5,
 			popups = false,
 			popups_ignorealpha = 0.6,
@@ -60,8 +60,8 @@ hl.config({
 
 		shadow = {
 			enabled = true,
-			range = 10,
-			render_power = 10,
+			range = 4,
+			render_power = 3,
 			color = c.shadow,
 		},
 
