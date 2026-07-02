@@ -1,0 +1,23 @@
+[theme.templates.user.hyprland]
+input_path = "$XDG_CONFIG_HOME/noctalia/templates/hyprland.lua"
+output_path = "$XDG_CONFIG_HOME/hypr/colors/hyprland_colors.lua"
+
+[theme.templates.user.hyprtoolkit]
+input_path = "$XDG_CONFIG_HOME/noctalia/templates/hyprtoolkit.conf"
+output_path = "$XDG_CONFIG_HOME/hypr/hyprtoolkit.conf"
+
+[theme.templates.user.hyprqt6engine]
+input_path = "$XDG_CONFIG_HOME/noctalia/templates/hyprqt6engine.conf"
+output_path = "$XDG_CONFIG_HOME/hypr/colors/hyprqt6engine_colors.conf"
+
+[theme.templates.user.kv_config]
+input_path = "$XDG_CONFIG_HOME/noctalia/templates/kvantum/kvantum.kvconfig"
+output_path = "$XDG_CONFIG_HOME/Kvantum/noctalia/noctalia.kvconfig"
+
+[theme.templates.user.kv_svg]
+input_path = "$XDG_CONFIG_HOME/noctalia/templates/kvantum/kvantum.svg"
+output_path = "$XDG_CONFIG_HOME/Kvantum/noctalia/noctalia.svg"
+
+[theme.templates.user.prismlauncher]
+input_path = "$XDG_CONFIG_HOME/noctalia/templates/prismlauncher.json"
+output_path = "$XDG_DATA_HOME/FreesmLauncher/themes/noctalia/theme.json"
