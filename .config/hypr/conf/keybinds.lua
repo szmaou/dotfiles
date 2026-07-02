@@ -21,17 +21,13 @@ hl.bind("SUPER + C", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
 hl.bind("SUPER + I", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
 hl.bind("SUPER + V", hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard"))
 hl.bind("SUPER + Period", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher '/emo '"))
-hl.bind("SUPER + R", hl.dsp.exec_cmd(ipc .. "launcher command"))
 hl.bind("SUPER + W", hl.dsp.exec_cmd(ipc .. "panel-toggle wallpaper"))
 hl.bind("SUPER + N", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center notifications"))
-hl.bind("SUPER + A", hl.dsp.exec_cmd(ipc .. "plugin:assistant-panel toggle"))
+hl.bind("SUPER + M", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center media"))
 hl.bind("SUPER + F1", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center audio"))
-hl.bind("SUPER + F12", hl.dsp.exec_cmd(ipc .. "plugin togglePanel noctalia-calculator"))
-hl.bind("CTRL + ALT + C", hl.dsp.exec_cmd(ipc .. "plugin:screen-toolkit colorPicker"))
 -- screenshots
-hl.bind("Print", hl.dsp.exec_cmd(ipc .. "plugin:screen-toolkit annotateFullscreen"), { non_consuming = true })
-hl.bind("ALT + Print", hl.dsp.exec_cmd(ipc .. "plugin:screen-toolkit annotate"), { non_consuming = true })
-hl.bind("CTRL + ALT + Print", hl.dsp.exec_cmd(ipc .. "plugin:screen-toolkit annotateWindow"), { non_consuming = true })
+hl.bind("Print", hl.dsp.exec_cmd(ipc .. "screenshot-fullscreen"), { non_consuming = true })
+hl.bind("CTRL + Print", hl.dsp.exec_cmd(ipc .. "screenshot-region"), { non_consuming = true })
 
 -- #layout
 -- Scrolling
@@ -52,8 +48,7 @@ hl.bind("ALT + page_down", hl.dsp.layout("splitratio +0.1"), { repeating = true 
 hl.bind("SUPER + Q", hl.dsp.window.close())
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind("SUPER + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
--- hl.bind("ALT + Tab", hl.dsp.exec_cmd("snappy-switcher next --mod alt"))
--- hl.bind("ALT + SHIFT + Tab", hl.dsp.exec_cmd("snappy-switcher prev --mod alt"))
+hl.bind("ALT + Tab", hl.dsp.exec_cmd(ipc .. "window-switcher"))
 
 -- move focus
 hl.bind("SUPER + left", hl.dsp.focus({ direction = "left" }))
@@ -66,7 +61,7 @@ hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- minimize
-hl.bind("SUPER + M", function()
+hl.bind("SUPER + X", function()
 	hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
 	hl.dispatch(hl.dsp.window.move({ workspace = "+0" }))
 	hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
