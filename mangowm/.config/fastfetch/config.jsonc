@@ -1,0 +1,117 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "display": {
+    "key": {
+      "width": 12
+    },
+    "size": {
+      "binaryPrefix": "jedec"
+    },
+    "separator": " 󰄾 "
+  },
+  "logo": {
+    "type": "sixel",
+    "source": "~/.config/fastfetch/saber.png",
+    "width": 30,
+    "height": 17
+  },
+  "modules": [
+    {
+      "type": "title",
+      "keyColor": "blue"
+    },
+    {
+      "type": "custom",
+      "format": "──────────────────────────────",
+      "keyColor": "black"
+    },
+    {
+      "type": "os",
+      "key": "os",
+      "keyColor": "yellow",
+      "format": "{name}"
+    },
+    {
+      "type": "host",
+      "key": "host",
+      "keyColor": "magenta",
+      "format": "{name}"
+    },
+    {
+      "type": "kernel",
+      "key": "kernel",
+      "keyColor": "green"
+    },
+    {
+      "type": "uptime",
+      "key": "up",
+      "keyColor": "green"
+    },
+    {
+      "type": "packages",
+      "key": "pkgs",
+      "keyColor": "cyan"
+    },
+    "break",
+    {
+      "type": "shell",
+      "key": "sh",
+      "keyColor": "blue",
+      "format": "{pretty-name}"
+    },
+    {
+      "type": "terminal",
+      "key": "term",
+      "keyColor": "blue"
+    },
+    {
+      "type": "wm",
+      "key": "wm",
+      "keyColor": "red",
+      "format": "{pretty-name}"
+    },
+    {
+      "type": "display",
+      "key": "display",
+      "keyColor": "magenta"
+    },
+    "break",
+    {
+      "type": "cpu",
+      "key": "cpu",
+      "keyColor": "red",
+      "format": "{name}"
+    },
+    {
+      "type": "gpu",
+      "key": "gpu",
+      "keyColor": "red",
+      "format": "{name}"
+    },
+    {
+      "type": "memory",
+      "key": "ram",
+      "keyColor": "yellow",
+      "format": "{used} / {total}"
+    },
+    {
+      "type": "disk",
+      "key": "disk",
+      "keyColor": "cyan",
+      "folders": [
+        "/"
+      ],
+      "format": "{size-used} / {size-total}"
+    },
+    {
+      "type": "localip",
+      "key": "local ip",
+      "keyColor": "green"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[33m󰮯 \u001b[32m󰊠 \u001b[34m󰊠 \u001b[31m󰊠 \u001b[36m󰊠 \u001b[35m󰊠 \u001b[37m󰊠 \u001b[97m󰊠"
+    }
+  ]
+}

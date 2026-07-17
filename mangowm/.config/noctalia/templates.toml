@@ -1,0 +1,3 @@
+[theme.templates.user.prismlauncher]
+input_path = "$XDG_CONFIG_HOME/noctalia/templates/prismlauncher.json"
+output_path = "$XDG_DATA_HOME/FreesmLauncher/themes/noctalia/theme.json"

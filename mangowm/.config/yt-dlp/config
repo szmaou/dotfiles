@@ -1,0 +1,29 @@
+# Output directory
+-P ~/Videos/yt-dlp
+
+# Default quality: 1080p (H.264 + AAC)
+-S vcodec:h264,acodec:aac,res:1080
+
+# Embed all metadata
+--embed-metadata
+--embed-thumbnail
+--embed-subs
+--embed-chapters
+
+# Download subtitles (English + Indonesian)
+--sub-langs en,id
+
+# SponsorBlock: mark segments as chapters
+--sponsorblock-mark all
+
+# Write xattrs (Linux metadata extended attributes)
+--xattrs
+
+# ===== MP4 ALIASES =====
+# Usage: yt-dlp --720p <URL>
+--alias 480p "-S vcodec:h264,acodec:aac,res:480"
+--alias 720p "-S vcodec:h264,acodec:aac,res:720"
+
+# ===== MP3 ALIAS =====
+# Usage: yt-dlp --mp3 <URL>
+--alias mp3 "-x --audio-format mp3 --audio-quality 320K"

@@ -1,0 +1,7 @@
+[mgr]
+prepend_keymap = [
+  { on = [
+    "g",
+    "m",
+  ], run = "cd /mnt/data", desc = "Go /mnt/data" },
+]
