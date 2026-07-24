@@ -14,7 +14,7 @@ set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 fish_add_path "$CARGO_HOME/bin" "$GOPATH/bin"
 
 if status is-interactive
-    
+
     # No greeting
     set fish_greeting
 
@@ -69,7 +69,3 @@ if status is-interactive
         command rm -f -- "$tmp"
     end
 end
-
-
-# Added by Antigravity CLI installer
-set -gx PATH "/home/san/.local/bin" $PATH
