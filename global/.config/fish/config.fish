@@ -11,14 +11,7 @@ set -gx GOPATH "$HOME/.local/share/go"
 set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
 # PATH
-fish_add_path "$CARGO_HOME/bin" "$GOPATH/bin"
-
-# Auto-start Mango on tty1 after login
-if status is-login
-    and test -z "$WAYLAND_DISPLAY"
-    and test "$XDG_VTNR" = 1
-    exec mango
-end
+fish_add_path "$CARGO_HOME/bin" "$GOPATH/bin" "$HOME/.local/share/npm/bin"
 
 if status is-interactive
 
