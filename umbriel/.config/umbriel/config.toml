@@ -18,7 +18,7 @@ files = ["src/keybinds.toml", "src/rules.toml"]
 autostart = ["noctalia"]
 mod_key = "Super"
 xwayland = true
-show_cheatsheet = true
+show_cheatsheet = false
 focus_on_activate = false
 honor_restored_maximize = false
 
@@ -115,7 +115,7 @@ variant = ""            # Example: ",nodeadkeys" for two layouts
 options = ""            # Example: "grp:alt_shift_toggle"
 repeat_rate = 25        # Key repeats per second, 0-1000
 repeat_delay = 250      # Delay before repeating, 0-10000 ms
-numlock_toggle = true   # Enable on connect; false preserves the current state
+numlock_toggle = false  # Enable on connect; false preserves the current state
 track_layout = "global" # global, or window for per-surface layout memory
 
 [input.mouse]
@@ -169,9 +169,9 @@ follows_mouse = true # Focus the pointer target after pointer motion
 # ────────────────────────────────────────────────────────────────────────────
 
 [layout]
-mode = "scrolling"                  # scrolling, dwindle, or master
-gap = 4                             # Logical pixels between tiles, 0-500
-width_presets = [0.333, 0.5, 0.667] # Width and height cycling fractions
+mode = "scrolling"                        # scrolling, dwindle, or master
+gap = 4                                   # Logical pixels between tiles, 0-500
+extent_presets = [0.333, 0.5, 0.667, 1.0] # Width and height cycling fractions
 
 [layout.struts]
 # Signed logical pixels reserved after panel exclusive zones. Negative values
@@ -183,10 +183,9 @@ bottom = 0
 
 [layout.scrolling]
 # direction = "horizontal"                      # horizontal or vertical strip axis
-default_width_fraction = 0.5  # Initial width for new columns, 0.1-1.0
-center_underfull_strip = true # Center a strip narrower than the viewport
-center_focused = false        # Always center the focused column
-expand_single_column = true   # Let a lone column fill the viewport
+default_extent_fraction = 0.5  # Initial width for new columns, 0.1-1.0
+center_underfull_strip = true  # Center a strip narrower than the viewport
+center_focused = "on_overflow" # Always center the focused column
 
 [layout.dwindle]
 # preserve_split = false                        # Keep every split direction fixed after creation
@@ -297,7 +296,7 @@ zoom = 0.4 # Workspace scale in overview, 0.1-0.75
 # Pinned windows stay hidden until overview closes; visible scratchpads are dismissed.
 # background_blur = true                        # Blur the wallpaper behind overview rows
 workspace_wallpaper = false # Mirror wallpapers inside workspace previews
-# shortcuts = true                              # Show keyboard shortcut badges on windows
+shortcuts = true            # Show keyboard shortcut badges on windows
 # shortcut_keys = "1234567890"                  # Badge keys in preference order
 
 [hot_corners.top_left]
@@ -333,3 +332,6 @@ action = "spawn:notify-send 'Bottom right'"
 # match.sandbox_engine = 'org\.flatpak'
 # match.app_id = 'org\.example\.ClipboardManager'
 # allow_globals = ["ext_data_control_manager_v1", "zwlr_data_control_manager_v1"]
+
+[include.optional]
+files = ["noctalia.toml"]

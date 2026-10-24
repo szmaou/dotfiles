@@ -4,112 +4,95 @@
 # Documentation: https://docs.noctalia.dev/umbriel/window-rules/
 # ────────────────────────────────────────────────────────────────────────────
 
-# Blur every window. Keep this selectorless rule first so later matching rules
-# can override individual blur settings.
+# Enable blur for every window
 [[window_rule]]
 blur = true
-blur_optimized = false
+blur_optimized = true
 
-# Noctalia settings
+# Narrow columns for terminals and file managers. These fractions also size any
+# floating window these applications open, including their dialogs.
 [[window_rule]]
-match.app_id = "^dev.noctalia.Noctalia$"
-default_floating = true
-default_size = [1020, 700]
+match.app_id = "^(Alacritty|kitty|org\\.gnome\\.Nautilus)$"
+default_scrolling_extent = 0.33
 
-# Noctalia share picker
+# Wide columns for browsers
 [[window_rule]]
-match.app_id = "^dev.noctalia.UmbrielSharePicker$"
-default_floating = true
-default_size = [800, 600]
+match.app_id = "^(helium|chromium)$"
+default_scrolling_extent = 0.75
 
-# Browsers expose no semantic PiP role or global position control.
+# Always use VRR for game content, even when the output policy disables it
+# [[window_rule]]
+# match.content_type = "game"
+# vrr = "always"
+
+# Match a client-defined tag. Proton-EM uses proton-game for game windows.
 [[window_rule]]
-match.title = "^(Picture-in-Picture|Picture in picture)$"
-default_floating = true
-default_maximize = false
-default_position = { x = 20, y = 20, anchor = "bottom_right" }
+match.xdg_tag = "^proton-game$"
+default_fullscreen = true
 
-# Keep Steam notification toasts in the bottom-right corner without stealing
-# focus, and pin them so workspace switches do not hide them.
+# Activate the HDR output while a matching fullscreen game is focused
+# [[window_rule]]
+# match.app_id = "^steam_app_[0-9]+$"
+# hdr = "fullscreen"
+
+# Request tearing for matching fullscreen games, even without a client hint
+# The output must also have tearing = true.
+[[window_rule]]
+match.app_id = "^(steam_app_[0-9]+|gamescope)$"
+tearing = true
+
+# Slight transparency for editors and file managers
+[[window_rule]]
+match.app_id = "^(code|org\\.gnome\\.Nautilus)$"
+opacity = 0.97
+
+# Float utility windows
+[[window_rule]]
+match.app_id = "^(Emulator|zenity|xdg-desktop-portal|qalculate-gtk|org\\.pulseaudio\\.pavucontrol)$"
+default_floating = true
+
+# Float common dialogs by title
+[[window_rule]]
+match.title = "^(Open File|Select|Choose a wallpaper|Open Folder|Save As|Library|Choose Where to Download|File Operation Progress|Rename|Copy Files|Move Files|Search Files)"
+default_floating = true
+
+# Games on workspace 4, fullscreen
+# [[window_rule]]
+# match.app_id = "^(steam.*|overwatch|overwatch\\.exe)$"
+# default_workspace = 4
+
+[[window_rule]]
+match.app_id = "^(steam_proton|steam_app.*|overwatch|overwatch\\.exe)$"
+default_fullscreen = true
+
+# Steam notification toasts
 [[window_rule]]
 match.title = "^notificationtoasts_.+_desktop"
 default_position = { x = 0, y = 0, anchor = "bottom_right" }
 default_focused = false
 default_pinned = true
 
-# Optional placement recipe. Output names follow the same rules as [output.*].
+# Noctalia settings
+[[window_rule]]
+match.app_id = "^dev.noctalia.Noctalia$"
+default_floating = true
+default_floating_size_px = { width = 1020, height = 700 }
+blur_popups = false
 
-# [[window_rule]]
-# match.app_id = "^org[.]example[.]Chat$"
-# default_output = "DP-1"
-# default_workspace = 2
-# default_focused = false
+# Noctalia share picker
+[[window_rule]]
+match.app_id = "^dev.noctalia.UmbrielSharePicker$"
+default_floating = true
+default_floating_size_px = { width = 800, height = 600 }
+default_position = { x = 32, y = 32, anchor = "bottom_right" }
 
-# Open an application maximized while keeping its parented dialogs natural-sized.
+# Swash
+[[window_rule]]
+match.app_id = "^dev.lemmy.swash$"
+default_floating = true
+default_floating_size_px = { width = 1000, height = 900 }
 
-# [[window_rule]]
-# match.app_id = "^example-app$"
-# default_maximize = true
-
-# Open an application maximized to usable-area edges, without gaps or borders.
-
-# [[window_rule]]
-# match.app_id = "^discord$"
-# default_maximize_to_edges = true
-
-# Match a standardized surface content hint.
-
-# [[window_rule]]
-# match.content_type = "game"
-# vrr = "always"
-
-# Match a client-defined XDG toplevel tag, such as Proton-EM's game tag.
-
-# [[window_rule]]
-# match.xdg_tag = "^proton-game$"
-# default_fullscreen = true
-
-# Seed a new horizontal scrolling column with a pixel width. The layout controls
-# its tiled height, and existing named columns keep their established width.
-
-# [[window_rule]]
-# match.app_id = "^org[.]example[.]Wide$"
-# default_size = [1200, 600]
-
-# Size a floating window as fractions of the usable area. `default_size` wins
-# on both axes if it is also present.
-
-# [[window_rule]]
-# match.app_id = "^org[.]example[.]Utility$"
-# default_floating = true
-# default_width = 0.5
-# default_height = 0.6
-
-# Dynamic effects and output policies can be combined in one matching rule.
-
-# [[window_rule]]
-# match.app_id = "^firefox$"
-# match.title = "^Library$"
-# default_floating = true
-# default_focused = false
-# focus_on_activate = true
-# opacity = 0.95
-# blur_popups = true
-# blur_ignore_alpha = 0.1
-# vrr = "always"
-# tearing = true
-# hdr = "fullscreen"
-
-# Keep related tiled windows in one named scrolling column. Lower orders appear
-# higher in horizontal scrolling and farther left in vertical scrolling.
-
-# [[window_rule]]
-# match.app_id = "^firefox$"
-# default_scrolling_column = "browsers"
-# default_scrolling_column_order = 10
-
-# Focus-aware rules update as focus changes.
-
+# Dim unfocused windows
 [[window_rule]]
 match.is_focused = false
 opacity = 0.85
@@ -117,6 +100,19 @@ opacity = 0.85
 [[window_rule]]
 match.is_focused = true
 opacity = 1.0
+
+# Disable blur for floating windows, but not scratchpad windows
+[[window_rule]]
+match.is_floating = true
+match.is_scratchpad = false
+blur = false
+
+# Dim them even further
+[[window_rule]]
+match.is_focused = false
+match.is_floating = true
+match.is_scratchpad = false
+opacity = 0.4
 
 # ────────────────────────────── Layer Rules ─────────────────────────────────
 # Match layer-shell surfaces such as panels, launchers, notifications, and

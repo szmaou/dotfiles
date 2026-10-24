@@ -6,6 +6,7 @@ set -gx VISUAL nvim
 set -gx CARGO_HOME "$HOME/.local/share/cargo"
 set -gx RUSTUP_HOME "$HOME/.local/share/rustup"
 set -gx GOPATH "$HOME/.local/share/go"
+set -gx NPM_CONFIG_USERCONFIG "$HOME/.config/npm/npmrc"
 
 # Format man pages
 set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
@@ -36,6 +37,7 @@ if status is-interactive
     abbr si "pacman -Si"
     abbr syu "sudo pacman -Syu"
     abbr rns "sudo pacman -Rns"
+    abbr qu "pacman -Qu"
     abbr qs "pacman -Qs"
     abbr qi "pacman -Qi"
     abbr qm "pacman -Qm"
@@ -44,7 +46,6 @@ if status is-interactive
     abbr ss "paru -Ss"
     abbr sua "paru -Sua"
     abbr qua "paru -Qua"
-    abbr fi "flatpak --installation=extra"
 
     # Starship
     function starship_transient_prompt_func
