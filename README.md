@@ -17,10 +17,10 @@
 ### Quick install
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/szmaou/dotfiles/main/install.sh)
+curl -fsSL https://raw.githubusercontent.com/szmaou/dotfiles/main/install.sh | bash
 ```
 
-Clone repo ke `~/.dotfiles` (atau `$DOTFILES_DIR`) lalu langsung menjalankan installer. Butuh `git` dan `stow`.
+Clone repo ke `~/.dotfiles` (atau `$DOTFILES_DIR`) lalu langsung menjalankan installer. Butuh `git` dan `stow`. Menu bahasa/whiptail tetap muncul karena input dibaca dari `/dev/tty`, bukan stdin.
 
 ### Install
 

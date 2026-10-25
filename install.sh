@@ -149,16 +149,19 @@ run() {
   "$@"
 }
 
+# True when a keyboard can be read, even under `curl | bash` (stdin = pipe).
+have_tty() { [[ -t 0 ]] || { : < /dev/tty; } 2>/dev/null; }
+
 choose_language() {
   [[ -n $LANG_CODE ]] && return
-  if (( ! YES )) && [[ -t 0 ]] && command -v whiptail >/dev/null; then
+  if (( ! YES )) && have_tty && command -v whiptail >/dev/null; then
     local pick
     pick=$(whiptail --title "$(t lang_title)" --menu "$(t lang_prompt)" 12 60 2 \
       en "English" \
       id "Indonesian" \
-      3>&1 1>&2 2>&3) || pick=""
+      </dev/tty 3>&1 1>&2 2>&3) || pick=""
     [[ $pick == id ]] && LANG_CODE=id
-  elif (( ! YES )) && [[ -t 0 ]]; then
+  elif (( ! YES )) && have_tty; then
     local a=""
     read -r -p "Language / Bahasa [en/id] (en): " a </dev/tty || a=""
     [[ $a == id ]] && LANG_CODE=id
@@ -208,13 +211,13 @@ choose_packages() {
     return
   fi
 
-  if (( ! YES )) && [[ -t 0 ]] && command -v whiptail >/dev/null; then
+  if (( ! YES )) && have_tty && command -v whiptail >/dev/null; then
     local out
     out=$(whiptail --title "$(t pick_title)" --checklist --separate-output \
       "$(t pick_prompt)" 18 84 6 \
       global "$(t desc_global)" ON \
       umbriel "$(t desc_umbriel)" ON \
-      3>&1 1>&2 2>&3) || die "$(t err_cancel)"
+      </dev/tty 3>&1 1>&2 2>&3) || die "$(t err_cancel)"
     mapfile -t pick <<<"$out"
     PKGS=("${pick[@]}")
     (( ${#PKGS[@]} )) || die "$(t err_no_pkg)"
