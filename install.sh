@@ -3,12 +3,14 @@
 # Config only: no package installs, no services, no chsh.
 set -euo pipefail
 
-REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SRC="${BASH_SOURCE[0]:-}"
+REPO=""
+[[ -n $SRC ]] && REPO="$(cd "$(dirname "$SRC")" && pwd)"
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 REPO_URL="https://github.com/szmaou/dotfiles.git"
 
 # Run through curl (script alone, no repo around it): clone, then re-exec.
-if [[ ! -d "$REPO/global/.config" ]]; then
+if [[ -z $REPO || ! -d "$REPO/global/.config" ]]; then
   command -v git >/dev/null || { echo "error: git is missing: sudo pacman -S git" >&2; exit 1; }
   command -v stow >/dev/null || { echo "error: stow is missing: sudo pacman -S stow" >&2; exit 1; }
   if [[ -d "$DOTFILES_DIR/.git" ]]; then
