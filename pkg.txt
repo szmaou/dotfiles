@@ -6,7 +6,6 @@ noto-fonts-cjk
 noto-fonts-emoji
 noto-fonts-extra
 ttf-jetbrains-mono-nerd
-ttf-times-new-roman
 base-devel
 pacman-contrib
 neovim
@@ -50,11 +49,10 @@ unrar
 jq
 poppler
 fd
-ripgrep
 resvg
 imagemagick
 yt-dlp
-jdk21-openjdk
+jdk25-openjdk
 gradle
 go
 imv
@@ -94,6 +92,7 @@ pavucontrol
 just
 blender
 trash-cli
+obsidian
 
 # aur
 paru
@@ -104,6 +103,7 @@ freesmlauncher-bin
 android-studio
 flutter-bin
 legcord
+ttf-times-new-roman
 
 # flatpak
 flatseal
