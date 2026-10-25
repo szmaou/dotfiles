@@ -1,0 +1,85 @@
+# ────────────────────────────── Animation ───────────────────────────────────
+# Parent values provide defaults for every event table. Nested values override
+# only that event. Disable one event to make just that transition instant.
+# Documentation: https://docs.noctalia.dev/umbriel/animation/
+# Every event accepts shader = "path/to/effect.glsl". Inline GLSL is not supported.
+# File paths are relative to this config, including configs loaded via include.
+# Bundled reveal.glsl and squash.glsl can be referenced by their installed absolute paths.
+# Copy examples/shaders beside your config only if you want editable local versions.
+# ────────────────────────────────────────────────────────────────────────────
+
+[animation]
+enabled = true
+duration_ms = 250
+curve = "easeout"
+
+# [animation.windows_in]
+# enabled = true
+# curve = "spring:1,900"
+# style = "popin"
+# scale = 0.5
+
+# [animation.windows_out]
+# enabled = true
+# curve = "spring:1,1400"
+# style = "popin"
+# scale = 0.8
+
+# [animation.windows_move]
+# enabled = true
+# curve = "spring:1,800"
+
+[animation.windows_resize]
+enabled = true
+curve = "spring:1,900"
+
+[animation.workspaces]
+style = "slide"
+enabled = true
+curve = "spring:1,800"
+
+[animation.overview]
+enabled = true
+curve = "spring:1,800"
+workspace_curve = "spring:1,1000"
+
+[animation.scratchpad]
+enabled = true
+curve = "spring:1,800"
+dim = 0.8
+blur = false
+
+[animation.dialogs]
+enabled = true
+dim = 0.3
+
+[animation.border]
+enabled = true
+curve = "spring:1,900"
+
+[animation.dim_unfocused]
+enabled = false
+dim = 0.0
+
+[animation.layers]
+enabled = false
+
+# Register reusable curves by adding or uncommenting entries below.
+# Documentation: https://docs.noctalia.dev/umbriel/animation/#curves
+
+curve = "0.05,0.9,0.1,1.0"
+
+[animation.beziers]
+myBezier = [0.05, 0.9, 0.1, 1.05]
+
+[animation.springs]
+myBounce = { damping = 0.5, stiffness = 200 }
+
+# [animation.windows_drag]
+# physics = true
+# stiffness = 36.0
+# damping = 6.5
+# coupling = 100.0
+# pointer_response = 2.0
+# max_displacement_px = 200.0
+# settle_after_pause_s = 0.25

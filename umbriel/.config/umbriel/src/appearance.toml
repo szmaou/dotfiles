@@ -1,0 +1,57 @@
+# ───────────────────────────── Appearance ───────────────────────────────────
+# Configure window decoration geometry, blur, shadows, and other visual
+# effects.
+# Documentation: https://docs.noctalia.dev/umbriel/appearance/#window-appearance
+# ────────────────────────────────────────────────────────────────────────────
+
+[appearance]
+prefer_no_csd = true     # Prefer Umbriel's border-only decoration
+border_width = 1         # Inner border width, 0-100 logical pixels
+outer_border_width = 0   # Optional outer ring, 0-100 logical pixels
+corner_radius = 2        # Radius of the final decorated edge, 0-100
+drag_opacity = 0.75      # Window opacity during a tiled or floating drag
+opaque_fullscreen = true
+
+[appearance.title_bar]
+mode = "off"
+height = 28
+font = "sans 10"
+button_position = "right"
+buttons = ["minimize", "maximize", "close"]
+button_corner_radius = -1
+
+[appearance.tab_bar]
+style = "titles"
+position = "top"
+height = 24
+font = "sans 10"
+padding = 8
+tab_gap = 2
+gap = -1
+corner_radius = -1
+title_format = "{title}"
+title_align = "center"
+visible = true
+hide_when_single = false
+max_tabs = 0
+overflow = "scroll"
+
+[appearance.blur]
+# This is the global blur engine. A matching window or layer rule must still
+# opt a surface into blur.
+enabled = true   # Disable blur and release per-output effect buffers
+optimized = true # Reuse one cached background blur per output
+passes = 3       # Blur passes, 0-8
+radius = 3       # Blur radius, 0-100
+noise = 0.02     # Noise overlay, 0.0-1.0
+brightness = 0.9 # 0.0-2.0
+contrast = 0.9   # 0.0-2.0
+saturation = 1.1 # 0.0-2.0
+
+[appearance.shadow]
+# Custom window shaders automatically shape the shadow from their output alpha.
+# Shadows stay beneath windows and follow closing snapshots as well.
+enabled = true # Draw shadows behind non-fullscreen windows
+softness = 10  # Gaussian softness, 0-200; 0 is a hard edge
+offset_x = 2   # Horizontal offset, -200 to 200
+offset_y = 2   # Vertical offset, -200 to 200

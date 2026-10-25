@@ -1,0 +1,35 @@
+[include]
+files = [
+  "/usr/share/umbriel/effects/border/pulse/effect.toml",
+  "/usr/share/umbriel/effects/animation/reveal/effect.toml",
+  "/usr/share/umbriel/effects/animation/squash/effect.toml",
+  "/usr/share/umbriel/effects/animation/workspace_wipe/effect.toml",
+  "/usr/share/umbriel/effects/cursor/glow/effect.toml",
+  "/usr/share/umbriel/effects/cursor/trail/effect.toml",
+  "/usr/share/umbriel/effects/cursor/trail-path/effect.toml",
+  "/usr/share/umbriel/effects/screen/vignette/effect.toml",
+]
+
+# [effects]
+# border = "pulse"
+# cursor = "trail"
+
+[animation.windows_in]
+duration_ms = 300
+curve = "easeout"
+effect = "reveal"
+
+[animation.windows_out]
+duration_ms = 250
+curve = "easeout"
+effect = "reveal"
+
+[animation.windows_move]
+effect = "squash"
+
+# [animation.workspaces]
+# style = "reveal"
+# effect = "workspace_wipe"
+# enabled = true
+# duration_ms = 300
+# curve = "easeout"

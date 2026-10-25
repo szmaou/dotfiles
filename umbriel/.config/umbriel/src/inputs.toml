@@ -1,0 +1,55 @@
+# ──────────────────────────────── Input ─────────────────────────────────────
+# Configure keyboards, pointers, tablets, cursor behavior, and focus policy.
+# Documentation: https://docs.noctalia.dev/umbriel/input/
+# ────────────────────────────────────────────────────────────────────────────
+
+[input]
+middle_click_paste = true       # Primary-selection paste; applies on reload
+client_window_drag = true
+window_snapping = false
+window_drag_toggle = "none"     # Retarget a window drag: "none", "floating", or "pinned"
+mod_right_double_click = "none"
+
+[input.keyboard]
+# Physical keyboard XKB settings. Virtual keyboards provide their own keymaps.
+layout = "us"           # Example: "us,de"; empty uses the system default
+variant = ""            # Example: ",nodeadkeys" for two layouts
+options = ""            # Example: "grp:alt_shift_toggle"
+model = ""
+repeat_rate = 25        # Key repeats per second, 0-1000
+repeat_delay = 250      # Delay before repeating, 0-10000 ms
+numlock_toggle = false  # Enable on connect; false preserves the current state
+track_layout = "global" # global, or window for per-surface layout memory
+
+[input.mouse]
+natural_scroll = false # Omit to preserve the libinput default
+left_handed = false
+# accel_profile = "flat"                        # Omit to preserve the libinput default
+sensitivity = 0.0      # Pointer speed, -1.0 to 1.0
+scroll_wheel_step = 60 # Logical pixels per layout-scroll action, 1-1000
+# scroll_button = "MouseBack"
+# scroll_button_lock = false
+
+[input.cursor]
+theme = ""               # Empty uses environment or default Xcursor theme
+size = 20                # Logical size, 1-512
+hardware_cursor = true   # False forces cursor composition
+follows_focus = false    # Warp to windows selected by focus, output, move, or other activations
+hide_when_typing = true  # Keep visible while typing
+hide_timeout_ms = 300000 # Idle hide timeout, 0 disables; maximum is 3600000
+
+[input.drag_edge_scroll]
+enabled = true
+trigger_zone = 30
+delay_ms = 100
+max_speed = 1500.0
+
+[input.focus]
+follows_mouse = true # Focus the pointer target after pointer motion
+# Refuse hover focus when revealing a window would scroll farther than this
+# many viewport widths. Omit the key for no limit.
+follows_mouse_max_scroll = 0.5
+
+# Exact, case-sensitive per-device overrides inherit their device-kind table.
+# Find names with `libinput list-devices`. Uncomment each complete block needed.
+# Documentation: https://docs.noctalia.dev/umbriel/input/#per-device-overrides
