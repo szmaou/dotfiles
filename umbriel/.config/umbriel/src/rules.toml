@@ -65,11 +65,6 @@ default_floating = true
 match.app_id = "^(steam_proton|steam_app.*|overwatch|overwatch\\.exe)$"
 default_fullscreen = true
 
-# Steam client itself (library, Big Picture, login) opens fullscreen
-[[window_rule]]
-match.app_id = "^(steam|steamwebhelper)$"
-default_fullscreen = true
-
 # Steam notification toasts
 [[window_rule]]
 match.title = "^notificationtoasts_.+_desktop"

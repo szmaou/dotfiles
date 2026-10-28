@@ -3,14 +3,12 @@
 # Config only: no package installs, no services, no chsh.
 set -euo pipefail
 
-SRC="${BASH_SOURCE[0]:-}"
-REPO=""
-[[ -n $SRC ]] && REPO="$(cd "$(dirname "$SRC")" && pwd)"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 REPO_URL="https://github.com/szmaou/dotfiles.git"
 
 # Run through curl (script alone, no repo around it): clone, then re-exec.
-if [[ -z $REPO || ! -d "$REPO/global/.config" ]]; then
+if [[ ! -d "$REPO/global/.config" ]]; then
   command -v git >/dev/null || { echo "error: git is missing: sudo pacman -S git" >&2; exit 1; }
   command -v stow >/dev/null || { echo "error: stow is missing: sudo pacman -S stow" >&2; exit 1; }
   if [[ -d "$DOTFILES_DIR/.git" ]]; then
@@ -151,19 +149,16 @@ run() {
   "$@"
 }
 
-# True when a keyboard can be read, even under `curl | bash` (stdin = pipe).
-have_tty() { [[ -t 0 ]] || { : < /dev/tty; } 2>/dev/null; }
-
 choose_language() {
   [[ -n $LANG_CODE ]] && return
-  if (( ! YES )) && have_tty && command -v whiptail >/dev/null; then
+  if (( ! YES )) && [[ -t 0 ]] && command -v whiptail >/dev/null; then
     local pick
     pick=$(whiptail --title "$(t lang_title)" --menu "$(t lang_prompt)" 12 60 2 \
       en "English" \
       id "Indonesian" \
-      </dev/tty 3>&1 1>&2 2>&3) || pick=""
+      3>&1 1>&2 2>&3) || pick=""
     [[ $pick == id ]] && LANG_CODE=id
-  elif (( ! YES )) && have_tty; then
+  elif (( ! YES )) && [[ -t 0 ]]; then
     local a=""
     read -r -p "Language / Bahasa [en/id] (en): " a </dev/tty || a=""
     [[ $a == id ]] && LANG_CODE=id
@@ -213,13 +208,13 @@ choose_packages() {
     return
   fi
 
-  if (( ! YES )) && have_tty && command -v whiptail >/dev/null; then
+  if (( ! YES )) && [[ -t 0 ]] && command -v whiptail >/dev/null; then
     local out
     out=$(whiptail --title "$(t pick_title)" --checklist --separate-output \
       "$(t pick_prompt)" 18 84 6 \
       global "$(t desc_global)" ON \
       umbriel "$(t desc_umbriel)" ON \
-      </dev/tty 3>&1 1>&2 2>&3) || die "$(t err_cancel)"
+      3>&1 1>&2 2>&3) || die "$(t err_cancel)"
     mapfile -t pick <<<"$out"
     PKGS=("${pick[@]}")
     (( ${#PKGS[@]} )) || die "$(t err_no_pkg)"

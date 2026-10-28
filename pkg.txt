@@ -93,6 +93,7 @@ just
 blender
 trash-cli
 obsidian
+power-profiles-daemon
 
 # aur
 paru
