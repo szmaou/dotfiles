@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Link the dotfiles packages (global/, umbriel/) into $HOME with GNU stow.
-# Config only: no package installs, no services, no chsh.
+# Optional: install packages from pkg.txt via --with-packages.
 set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -20,6 +20,7 @@ if [[ ! -d "$REPO/global/.config" ]]; then
   fi
   exec "$DOTFILES_DIR/install.sh" "$@"
 fi
+
 ALL_PKGS=(global umbriel)
 PKGS=()
 DRY=0
@@ -28,6 +29,7 @@ BACKUP=1
 UNLINK=0
 ONLY=""
 LANG_CODE=""
+WITH_PACKAGES=0
 STAMP="$(date +%Y%m%d-%H%M%S)"
 BACKUP_ROOT="$HOME/.dotfiles-backup"
 LOG="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles-link.log"
@@ -38,6 +40,7 @@ declare -A MSG_EN=(
 
   --lang=en|id            language, default en
   --only=global,umbriel   limit to these packages (default: both)
+  --with-packages         install packages from pkg.txt (official, AUR, flatpak)
   --dry-run               print actions, change nothing
   --yes                   no prompts (skip files owned by another user)
   --no-backup             do not move conflicting files to ~/.dotfiles-backup
@@ -78,12 +81,23 @@ declare -A MSG_EN=(
   [fail_fish]='FAIL fish syntax'
   [unlink_done]='unlink done. log: %s'
   [done]='done. log: %s'
+  [pkg_title]='Package installation'
+  [pkg_prompt]='Install packages from pkg.txt?'
+  [pkg_official]='official repo'
+  [pkg_aur]='AUR'
+  [pkg_flatpak]='Flatpak'
+  [pkg_installing]='installing %s packages...'
+  [pkg_already]='already installed'
+  [pkg_paru_missing]='paru not found; bootstrapping from AUR...'
+  [pkg_flatpak_missing]='flatpak not found; skipping Flatpak packages'
+  [pkg_sudo]='sudo required for package installation'
 )
 declare -A MSG_ID=(
   [usage]='penggunaan: ./install.sh [opsi]
 
   --lang=en|id            bahasa, default en
   --only=global,umbriel   batasi ke paket ini (default: keduanya)
+  --with-packages         install paket dari pkg.txt (official, AUR, flatpak)
   --dry-run               cetak aksi, tidak mengubah apa pun
   --yes                   tanpa tanya (lewati file milik user lain)
   --no-backup             jangan pindahkan file konflik ke ~/.dotfiles-backup
@@ -124,6 +138,16 @@ declare -A MSG_ID=(
   [fail_fish]='GAGAL fish syntax'
   [unlink_done]='unlink selesai. log: %s'
   [done]='selesai. log: %s'
+  [pkg_title]='Instalasi paket'
+  [pkg_prompt]='Install paket dari pkg.txt?'
+  [pkg_official]='repo resmi'
+  [pkg_aur]='AUR'
+  [pkg_flatpak]='Flatpak'
+  [pkg_installing]='menginstall %s paket...'
+  [pkg_already]='sudah terinstall'
+  [pkg_paru_missing]='paru tidak ditemukan; bootstrap dari AUR...'
+  [pkg_flatpak_missing]='flatpak tidak ditemukan; melewati paket Flatpak'
+  [pkg_sudo]='sudo diperlukan untuk instalasi paket'
 )
 
 # t <key> [printf args...]
@@ -170,6 +194,7 @@ while (( $# )); do
   case "$1" in
     --lang=*) LANG_CODE="${1#*=}"; shift ;;
     --only=*) ONLY="${1#*=}"; shift ;;
+    --with-packages) WITH_PACKAGES=1; shift ;;
     --dry-run) DRY=1; shift ;;
     --yes|-y) YES=1; shift ;;
     --no-backup) BACKUP=0; shift ;;
@@ -187,6 +212,135 @@ case "$LANG_CODE" in
   en|id) ;;
   *) printf 'error: unknown language: %s (en|id)\n' "$LANG_CODE" >&2; exit 1 ;;
 esac
+
+# ── Package installation ────────────────────────────────────────────────────
+parse_pkg_txt() {
+  local section="" line pkg
+  OFFICIAL_PKGS=()
+  AUR_PKGS=()
+  FLATPAK_PKGS=()
+  while IFS= read -r line; do
+    line="${line%%#*}"   # strip comments
+    line="${line// /}"   # strip spaces
+    [[ -z $line ]] && continue
+    if [[ $line == "#official"* || $line == "#officialrepo" ]]; then
+      section="official"
+      continue
+    elif [[ $line == "#aur" ]]; then
+      section="aur"
+      continue
+    elif [[ $line == "#flatpak" ]]; then
+      section="flatpak"
+      continue
+    fi
+    case "$section" in
+      official) OFFICIAL_PKGS+=("$line") ;;
+      aur) AUR_PKGS+=("$line") ;;
+      flatpak) FLATPAK_PKGS+=("$line") ;;
+    esac
+  done < "$REPO/pkg.txt"
+}
+
+is_installed_pacman() { pacman -Q "$1" >/dev/null 2>&1; }
+is_installed_paru() { paru -Q "$1" >/dev/null 2>&1; }
+is_installed_flatpak() { flatpak list --app --columns=application 2>/dev/null | grep -qx "$1"; }
+
+bootstrap_paru() {
+  log "  $(t pkg_paru_missing)"
+  (( DRY )) && return 0
+  local tmpdir
+  tmpdir=$(mktemp -d)
+  run git clone https://aur.archlinux.org/paru-bin.git "$tmpdir"
+  run makepkg -si --noconfirm -D "$tmpdir"
+  run rm -rf "$tmpdir"
+}
+
+install_packages() {
+  (( WITH_PACKAGES )) || return 0
+  log "== $(t pkg_title)"
+
+  parse_pkg_txt
+
+  local to_install_official=() to_install_aur=() to_install_flatpak=() pkg
+
+  # Official repo packages
+  for pkg in "${OFFICIAL_PKGS[@]}"; do
+    if is_installed_pacman "$pkg"; then
+      log "  = $pkg ($(t pkg_already))"
+    else
+      to_install_official+=("$pkg")
+    fi
+  done
+
+  # AUR packages
+  for pkg in "${AUR_PKGS[@]}"; do
+    if is_installed_paru "$pkg"; then
+      log "  = $pkg ($(t pkg_already))"
+    else
+      to_install_aur+=("$pkg")
+    fi
+  done
+
+  # Flatpak packages
+  for pkg in "${FLATPAK_PKGS[@]}"; do
+    if is_installed_flatpak "$pkg"; then
+      log "  = $pkg ($(t pkg_already))"
+    else
+      to_install_flatpak+=("$pkg")
+    fi
+  done
+
+  # Confirm if interactive
+  local total=$(( ${#to_install_official[@]} + ${#to_install_aur[@]} + ${#to_install_flatpak[@]} ))
+  if (( total == 0 )); then
+    log "  all packages already installed"
+    return 0
+  fi
+
+  if (( ! YES )) && [[ -t 0 ]]; then
+    local msg
+    printf -v msg "$(t pkg_installing)" "$total"
+    if command -v whiptail >/dev/null; then
+      whiptail --title "$(t pkg_title)" --yesno "$msg\n\n$(t pkg_official): ${#to_install_official[@]}\n$(t pkg_aur): ${#to_install_aur[@]}\n$(t pkg_flatpak): ${#to_install_flatpak[@]}" 16 70 \
+        3>&1 1>&2 2>&3 || { log "cancelled"; return 1; }
+    else
+      read -r -p "$msg (official: ${#to_install_official[@]}, AUR: ${#to_install_aur[@]}, flatpak: ${#to_install_flatpak[@]}) [y/N] " msg </dev/tty
+      [[ $msg == [yY] ]] || { log "cancelled"; return 1; }
+    fi
+  fi
+
+  # sudo check
+  if (( ! DRY )); then
+    sudo -v || die "$(t pkg_sudo)"
+  fi
+
+  # Install official
+  if (( ${#to_install_official[@]} )); then
+    log "  $(t pkg_installing "${#to_install_official[@]}") $(t pkg_official)"
+    run sudo pacman -S --needed --noconfirm "${to_install_official[@]}"
+  fi
+
+  # Install AUR
+  if (( ${#to_install_aur[@]} )); then
+    command -v paru >/dev/null || bootstrap_paru
+    log "  $(t pkg_installing "${#to_install_aur[@]}") $(t pkg_aur)"
+    run paru -S --needed --noconfirm "${to_install_aur[@]}"
+  fi
+
+  # Install Flatpak
+  if (( ${#to_install_flatpak[@]} )); then
+    if command -v flatpak >/dev/null; then
+      # Ensure remotes
+      run flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      # modmanager-origin for amethysmodmanager
+      run flatpak remote-add --if-not-exists modmanager-origin https://chrisdkn.github.io/Amethyst-Mod-Manager/repo/
+      log "  $(t pkg_installing "${#to_install_flatpak[@]}") $(t pkg_flatpak)"
+      run flatpak install --noninteractive --assumeyes flathub "${to_install_flatpak[@]}"
+    else
+      log "  $(t pkg_flatpak_missing)"
+    fi
+  fi
+}
 
 preflight() {
   [[ -d "$REPO/global/.config" && -d "$REPO/umbriel/.config" ]] ||
@@ -344,6 +498,7 @@ validate_configs() {
 }
 
 preflight
+install_packages
 choose_packages
 log "$(t repo "$REPO")"
 log "$(t packages "${PKGS[*]}")"

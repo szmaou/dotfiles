@@ -26,10 +26,18 @@ Clone repo ke `~/.dotfiles` (atau `$DOTFILES_DIR`) lalu langsung menjalankan ins
 
 ```bash
 git clone https://github.com/szmaou/dotfiles.git ~/.dotfiles && cd ~/.dotfiles
-./install.sh              # pilih bahasa lalu paket lewat whiptail, backup, stow ke $HOME
-./install.sh --lang=id    # pesan bahasa Indonesia
-./install.sh --dry-run    # lihat rencana tanpa mengubah apa pun
-./install.sh --unlink     # lepas symlink
+./install.sh                       # pilih bahasa lalu paket lewat whiptail, backup, stow ke $HOME
+./install.sh --lang=id             # pesan bahasa Indonesia
+./install.sh --with-packages       # install paket dari pkg.txt (official, AUR, flatpak)
+./install.sh --dry-run             # lihat rencana tanpa mengubah apa pun
+./install.sh --unlink              # lepas symlink
 ```
+
+**Flags:**
+- `--with-packages` — install paket dari `pkg.txt` via `pacman` (official), `paru` (AUR), `flatpak`. Bootstrap `paru` otomatis jika belum ada. Butuh `sudo`.
+- `--dry-run` — simulasi, tidak menulis file.
+- `--yes` — non-interaktif, skip prompt (kombinasi `--dry-run --yes` aman untuk CI).
+- `--only=global,umbriel` — batasi paket config yang di-link.
+- `--unlink` — hapus symlink tanpa hapus file di repo.
 
 Butuh `stow`. Backup file lama masuk `~/.dotfiles-backup/<timestamp>/`.
