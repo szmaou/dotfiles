@@ -28,13 +28,15 @@ Clone repo ke `~/.dotfiles` (atau `$DOTFILES_DIR`) lalu langsung menjalankan ins
 git clone https://github.com/szmaou/dotfiles.git ~/.dotfiles && cd ~/.dotfiles
 ./install.sh                       # pilih bahasa lalu paket lewat whiptail, backup, stow ke $HOME
 ./install.sh --lang=id             # pesan bahasa Indonesia
-./install.sh --with-packages       # install paket dari pkg.txt (official, AUR, flatpak)
+./install.sh --install-core        # install umbriel + noctalia + dependensi (official + AUR)
+./install.sh --with-packages       # install SEMUA paket dari pkg.txt (official, AUR, flatpak)
 ./install.sh --dry-run             # lihat rencana tanpa mengubah apa pun
 ./install.sh --unlink              # lepas symlink
 ```
 
 **Flags:**
-- `--with-packages` — install paket dari `pkg.txt` via `pacman` (official), `paru` (AUR), `flatpak`. Bootstrap `paru` otomatis jika belum ada. Butuh `sudo`.
+- `--install-core` — install umbriel-git, noctalia, dan dependensi mereka saja (bukan pkg.txt lengkap). Butuh `sudo` dan `paru` (auto-bootstrap jika belum ada).
+- `--with-packages` — install SEMUA paket dari `pkg.txt` via `pacman` (official), `paru` (AUR), `flatpak`. Butuh `sudo`.
 - `--dry-run` — simulasi, tidak menulis file.
 - `--yes` — non-interaktif, skip prompt (kombinasi `--dry-run --yes` aman untuk CI).
 - `--only=global,umbriel` — batasi paket config yang di-link.
