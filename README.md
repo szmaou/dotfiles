@@ -63,4 +63,4 @@ Keduanya autostart di tty1. Runtime Hyprland butuh `hyprland` + `xdg-desktop-por
 ```bash
 sudo pacman -S --needed xdg-desktop-portal-hyprland
 ```
-Setelah ganti kompositor, logout penuh agar sesi systemd/portal lama tidak dipakai ulang. Noctalia membuat tema di `~/.config/hypr/noctalia.lua` (mode Lua) atau `noctalia.conf` (mode hyprlang); config memuat keduanya dengan fallback statis.
+Setelah ganti kompositor, logout penuh agar sesi systemd/portal lama tidak dipakai ulang. Noctalia generate `~/.config/hypr/noctalia.lua`; config memuatnya dengan `pcall` dan punya warna fallback statis.

@@ -6,7 +6,12 @@ require("conf.keybinds")
 require("conf.rules")
 require("conf.plugins")
 
-local ok, noctalia = pcall(require, "noctalia")
+-- Noctalia theme (generated at ~/.config/hypr/noctalia.lua). The literal
+-- require("noctalia") call also stops Noctalia's hook from appending a
+-- duplicate include on later theme applies.
+local ok, noctalia = pcall(function()
+	return require("noctalia")
+end)
 if ok then
 	noctalia.apply_theme()
 end

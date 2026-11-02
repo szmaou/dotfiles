@@ -1,27 +1,7 @@
--- Border colours come from Noctalia: its generated module (noctalia.lua) when
--- available, otherwise the hyprlang snippet noctalia.conf. Static fallback
--- covers the first boot before a theme exists.
-local function noctalia_conf_colors()
-	local dir = os.getenv("XDG_CONFIG_HOME") or (os.getenv("HOME") .. "/.config")
-	local file = io.open(dir .. "/hypr/noctalia.conf", "r")
-	if not file then
-		return nil
-	end
-	local body = file:read("*a")
-	file:close()
-	local primary = body:match("%$primary%s*=%s*rgb%((%x+)%)")
-	local surface = body:match("%$surface%s*=%s*rgb%((%x+)%)")
-	if not primary then
-		return nil
-	end
-	return {
-		primary = "rgb(" .. primary .. ")",
-		surface = "rgb(" .. (surface or primary) .. ")",
-	}
-end
-
+-- Border colours come from Noctalia's generated module (~/.config/hypr/noctalia.lua).
+-- Static fallback covers the first boot before a theme exists.
 local ok, noctalia = pcall(require, "noctalia")
-local theme = (ok and noctalia.colors) or noctalia_conf_colors() or {
+local theme = (ok and noctalia.colors) or {
 	primary = "rgba(33ccffee)",
 	surface = "rgba(595959aa)",
 }
