@@ -59,4 +59,8 @@ stow --no-folding -d . -t ~ hyprland
 stow --no-folding -d . -t ~ -D hyprland
 stow --no-folding -d . -t ~ umbriel
 ```
-Keduanya autostart di tty1. Runtime Hyprland butuh `hyprland` + `xdg-desktop-portal-hyprland`. Portal itu konflik dengan `xdg-desktop-portal-umbriel-git`, jadi install salah satu saja. Noctalia membuat tema di `~/.config/hypr/noctalia.lua` (mode Lua) atau `noctalia.conf` (mode hyprlang); config memuat keduanya dengan fallback statis.
+Keduanya autostart di tty1. Runtime Hyprland butuh `hyprland` + `xdg-desktop-portal-hyprland`. Portal umbriel dan Hyprland boleh terpasang bersamaan: tidak ada konflik paket, dan `xdg-desktop-portal` memilih backend dari `XDG_CURRENT_DESKTOP` (`umbriel` vs `Hyprland`). Install sekali:
+```bash
+sudo pacman -S --needed xdg-desktop-portal-hyprland
+```
+Setelah ganti kompositor, logout penuh agar sesi systemd/portal lama tidak dipakai ulang. Noctalia membuat tema di `~/.config/hypr/noctalia.lua` (mode Lua) atau `noctalia.conf` (mode hyprlang); config memuat keduanya dengan fallback statis.
