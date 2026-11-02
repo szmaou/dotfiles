@@ -55,8 +55,8 @@ declare -A MSG_EN=(
   [usage]='usage: ./install.sh [options]
 
   --lang=en|id            language, default en
-  --only=global,umbriel,hyprland
-                          limit to these packages (default: all three)
+  --only=global,umbriel   limit to these packages (+ hyprland, one compositor only)
+                          default: global,umbriel
   --install-core          install umbriel + noctalia + their dependencies only
   --dry-run               print actions, change nothing
   --yes                   no prompts (skip files owned by another user)
@@ -73,6 +73,8 @@ declare -A MSG_EN=(
   [err_unknown_pkg]='unknown package: %s'
   [err_cancel]='cancelled'
   [err_no_pkg]='no package selected'
+  [err_both_compositors]='umbriel and hyprland share autostart.fish; pick one compositor'
+  [err_compositor_stowed]='%s is still stowed; run: stow -D %s'
   [err_conflict_nobackup]='conflict on %s; drop --no-backup to back it up'
   [err_validate]='validation failed, see %s'
   [err_unlinked]='some targets are not linked, see %s'
@@ -80,7 +82,7 @@ declare -A MSG_EN=(
   [pick_prompt]='Select packages to link into $HOME:'
   [desc_global]='fish, starship, foot, yazi, btop, fastfetch, noctalia, yt-dlp, bunfig'
   [desc_umbriel]='compositor config + tty1 autostart'
-  [desc_hyprland]='Hyprland Lua config (alternative compositor)'
+  [desc_hyprland]='Hyprland Lua config (alternative, pick one compositor)'
   [repo]='repo: %s'
   [packages]='packages: %s'
   [st_new]='+ %s'
@@ -115,8 +117,8 @@ declare -A MSG_ID=(
   [usage]='penggunaan: ./install.sh [opsi]
 
   --lang=en|id            bahasa, default en
-  --only=global,umbriel,hyprland
-                          batasi ke paket ini (default: ketiganya)
+  --only=global,umbriel   batasi ke paket ini (+ hyprland, salah satu kompositor)
+                          default: global,umbriel
   --install-core          install umbriel + noctalia + dependensi mereka saja
   --dry-run               cetak aksi, tidak mengubah apa pun
   --yes                   tanpa tanya (lewati file milik user lain)
@@ -133,6 +135,8 @@ declare -A MSG_ID=(
   [err_unknown_pkg]='paket tidak dikenal: %s'
   [err_cancel]='dibatalkan'
   [err_no_pkg]='tidak ada paket dipilih'
+  [err_both_compositors]='umbriel dan hyprland memakai autostart.fish yang sama; pilih salah satu'
+  [err_compositor_stowed]='%s masih ter-stow; jalankan: stow -D %s'
   [err_conflict_nobackup]='konflik pada %s; pakai --no-backup untuk melewati backup otomatis'
   [err_validate]='validasi gagal, cek %s'
   [err_unlinked]='ada target yang tidak ter-link, cek %s'
@@ -140,7 +144,7 @@ declare -A MSG_ID=(
   [pick_prompt]='Pilih paket yang dilink ke $HOME:'
   [desc_global]='fish, starship, foot, yazi, btop, fastfetch, noctalia, yt-dlp, bunfig'
   [desc_umbriel]='config compositor + autostart tty1'
-  [desc_hyprland]='config Hyprland Lua (kompositor alternatif)'
+  [desc_hyprland]='config Hyprland Lua (alternatif, pilih salah satu)'
   [repo]='repo: %s'
   [packages]='paket: %s'
   [st_new]='+ %s'
@@ -331,7 +335,7 @@ choose_packages() {
       "$(t pick_prompt)" 18 84 6 \
       global "$(t desc_global)" ON \
       umbriel "$(t desc_umbriel)" ON \
-      hyprland "$(t desc_hyprland)" ON \
+      hyprland "$(t desc_hyprland)" OFF \
       3>&1 1>&2 2>&3) || die "$(t err_cancel)"
     mapfile -t pick <<<"$out"
     PKGS=("${pick[@]}")
@@ -339,7 +343,7 @@ choose_packages() {
     return
   fi
 
-  PKGS=("${ALL_PKGS[@]}")
+  PKGS=(global umbriel)
 }
 
 # Repo-relative path of every file in a package, one per line.
@@ -362,6 +366,35 @@ target_state() {
   else
     echo conflict
   fi
+}
+# True when at least one file of the package is linked into $HOME.
+package_stowed() {
+  local pkg=$1 rel t
+  while read -r rel; do
+    t="$HOME/${rel#*/}"
+    if [[ -L $t && "$(readlink -f -- "$t")" == "$(readlink -f -- "$REPO/$rel")" ]]; then
+      return 0
+    fi
+  done < <(pkg_files "$pkg")
+  return 1
+}
+# umbriel and hyprland both ship ~/.config/fish/conf.d/autostart.fish.
+check_compositor_exclusive() {
+  local pkg other
+  (( UNLINK )) && return
+  if [[ " ${PKGS[*]} " == *" umbriel "* && " ${PKGS[*]} " == *" hyprland "* ]]; then
+    die "$(t err_both_compositors)"
+  fi
+  for pkg in "${PKGS[@]}"; do
+    case $pkg in
+      umbriel) other=hyprland ;;
+      hyprland) other=umbriel ;;
+      *) continue ;;
+    esac
+    if package_stowed "$other"; then
+      die "$(t err_compositor_stowed "$other" "$other")"
+    fi
+  done
 }
 
 backup_target() {
@@ -486,6 +519,7 @@ validate_configs() {
 preflight
 install_core
 choose_packages
+check_compositor_exclusive
 log "$(t repo "$REPO")"
 log "$(t packages "${PKGS[*]}")"
 

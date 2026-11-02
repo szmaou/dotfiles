@@ -14,7 +14,7 @@
 
 - `global/` — shared configs (fish, starship, yazi, foot, fastfetch, noctalia, yt-dlp)
 - `umbriel/` — Umbriel config (compositor, keybinds, window rules), autostart on tty1
-- `hyprland/` — Hyprland Lua config (kompositor alternatif), dijalankan via `start-hyprland`
+- `hyprland/` — Hyprland Lua config (kompositor alternatif), autostart on tty1
 
 ### Quick install
 
@@ -45,11 +45,18 @@ git clone https://github.com/szmaou/dotfiles.git ~/.dotfiles && cd ~/.dotfiles
 Butuh `stow`. Backup file lama masuk `~/.dotfiles-backup/<timestamp>/`.
 
 ### Hyprland (alternatif)
+`hyprland/` berisi config Lua untuk Hyprland sebagai alternatif `umbriel/`. Keduanya sama-sama menyediakan `~/.config/fish/conf.d/autostart.fish`, jadi **hanya satu yang boleh ter-stow**. Installer menolak memilih keduanya sekaligus.
 
-`hyprland/` berisi config Lua untuk Hyprland dan bisa dipakai sebagai alternatif `umbriel/`. Keduanya boleh di-stow bersamaan karena path-nya berbeda:
-
+Ganti kompositor dengan stow manual:
 ```bash
-./install.sh --only=global,hyprland
-```
+cd ~/.dotfiles
 
-Runtime butuh `hyprland` + `xdg-desktop-portal-hyprland`. Portal itu konflik dengan `xdg-desktop-portal-umbriel-git`, jadi install salah satu saja. Login di tty2 untuk auto-start Hyprland (umbriel tetap di tty1), atau jalankan `start-hyprland` manual. Noctalia membuat tema di `~/.config/hypr/noctalia.lua` (mode Lua) atau `noctalia.conf` (mode hyprlang); config memuat keduanya dengan fallback statis.
+# umbriel -> hyprland
+stow --no-folding -d . -t ~ -D umbriel
+stow --no-folding -d . -t ~ hyprland
+
+# hyprland -> umbriel
+stow --no-folding -d . -t ~ -D hyprland
+stow --no-folding -d . -t ~ umbriel
+```
+Keduanya autostart di tty1. Runtime Hyprland butuh `hyprland` + `xdg-desktop-portal-hyprland`. Portal itu konflik dengan `xdg-desktop-portal-umbriel-git`, jadi install salah satu saja. Noctalia membuat tema di `~/.config/hypr/noctalia.lua` (mode Lua) atau `noctalia.conf` (mode hyprlang); config memuat keduanya dengan fallback statis.
