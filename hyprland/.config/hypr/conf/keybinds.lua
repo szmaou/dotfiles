@@ -1,5 +1,3 @@
--- Mirrors umbriel/.config/umbriel/src/keybinds.toml.
--- Layout is scrolling, so column actions use scrolling layout messages.
 local ipc = "noctalia msg "
 
 -- #Session
@@ -100,9 +98,3 @@ hl.bind("SUPER + F7", hl.dsp.exec_cmd(ipc .. "media toggle"), { locked = true })
 hl.bind("SUPER + F8", hl.dsp.exec_cmd(ipc .. "media next"), { locked = true })
 hl.bind("SUPER + CTRL + Page_Up", hl.dsp.exec_cmd(ipc .. "brightness-up"), { locked = true, repeating = true })
 hl.bind("SUPER + CTRL + Page_Down", hl.dsp.exec_cmd(ipc .. "brightness-down"), { locked = true, repeating = true })
-
--- No Hyprland 0.57 equivalent (umbriel-only binds):
---   Mod+O overview-toggle, Mod+Slash cheatsheet-toggle,
---   Mod+Home/End column focus first/last, Mod+Shift+Home/End move first/last,
---   Mod+Shift+Up/Down window move up/down, Mod+Alt+Minus/Equal height resize,
---   Mod+Alt+R / Mod+Alt+Shift+R secondary extent, Mod+MouseMiddle scroll drag.

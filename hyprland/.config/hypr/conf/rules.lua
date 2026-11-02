@@ -91,17 +91,3 @@ hl.window_rule({
 	match = { class = "^jetbrains-.*$", float = true, title = "^$|^\\s$|^win\\d+$" },
 	no_initial_focus = true,
 })
-hl.window_rule({
-	match = { class = "kitty-float" },
-	float = true,
-	center = true,
-	size = { 500, 400 },
-	border_size = 2,
-	rounding = 0,
-})
-hl.window_rule({
-	match = { class = "^(org.pulseaudio.pavucontrol)$" },
-	float = true,
-	center = true,
-	size = "(monitor_w * 0.45) (monitor_h * 0.45)",
-})
