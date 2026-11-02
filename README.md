@@ -5,6 +5,7 @@
 | Category        | Program                                                                                          |
 | --------------- | ------------------------------------------------------------------------------------------------ |
 | WM / Compositor | [umbriel](https://github.com/noctalia-dev/umbriel)                                                |
+| Compositor (alt.) | [Hyprland](https://hypr.land)                                                                     |
 | Desktop shell   | [noctalia](https://github.com/noctalia-dev/noctalia)                                             |
 | Shell           | [fish](https://github.com/fish-shell/fish-shell) + [starship](https://github.com/starship/starship) |
 | File manager    | [yazi](https://github.com/sxyazi/yazi)                                                           |
@@ -13,6 +14,7 @@
 
 - `global/` — shared configs (fish, starship, yazi, foot, fastfetch, noctalia, yt-dlp)
 - `umbriel/` — Umbriel config (compositor, keybinds, window rules), autostart on tty1
+- `hyprland/` — Hyprland Lua config (kompositor alternatif), dijalankan via `start-hyprland`
 
 ### Quick install
 
@@ -41,3 +43,13 @@ git clone https://github.com/szmaou/dotfiles.git ~/.dotfiles && cd ~/.dotfiles
 - `--unlink` — hapus symlink tanpa hapus file di repo.
 
 Butuh `stow`. Backup file lama masuk `~/.dotfiles-backup/<timestamp>/`.
+
+### Hyprland (alternatif)
+
+`hyprland/` berisi config Lua untuk Hyprland dan bisa dipakai sebagai alternatif `umbriel/`. Keduanya boleh di-stow bersamaan karena path-nya berbeda:
+
+```bash
+./install.sh --only=global,hyprland
+```
+
+Runtime butuh `hyprland` + `xdg-desktop-portal-hyprland`. Portal itu konflik dengan `xdg-desktop-portal-umbriel-git`, jadi install salah satu saja. Jalankan `start-hyprland` dari TTY lain. Noctalia membuat `~/.config/hypr/noctalia.lua` lewat template tema Hyprland; config memuatnya dengan `pcall` agar tetap jalan sebelum file itu ada.

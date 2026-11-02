@@ -21,7 +21,7 @@ if [[ ! -d "$REPO/global/.config" ]]; then
   exec "$DOTFILES_DIR/install.sh" "$@"
 fi
 
-ALL_PKGS=(global umbriel)
+ALL_PKGS=(global umbriel hyprland)
 PKGS=()
 DRY=0
 YES=0
@@ -55,7 +55,8 @@ declare -A MSG_EN=(
   [usage]='usage: ./install.sh [options]
 
   --lang=en|id            language, default en
-  --only=global,umbriel   limit to these packages (default: both)
+  --only=global,umbriel,hyprland
+                          limit to these packages (default: all three)
   --install-core          install umbriel + noctalia + their dependencies only
   --dry-run               print actions, change nothing
   --yes                   no prompts (skip files owned by another user)
@@ -79,6 +80,7 @@ declare -A MSG_EN=(
   [pick_prompt]='Select packages to link into $HOME:'
   [desc_global]='fish, starship, foot, yazi, btop, fastfetch, noctalia, yt-dlp, bunfig'
   [desc_umbriel]='compositor config + tty1 autostart'
+  [desc_hyprland]='Hyprland Lua config (alternative compositor)'
   [repo]='repo: %s'
   [packages]='packages: %s'
   [st_new]='+ %s'
@@ -92,6 +94,8 @@ declare -A MSG_EN=(
   [missing]='MISSING %s'
   [ok_umbriel]='ok umbriel config'
   [fail_umbriel]='FAIL umbriel config'
+  [ok_hyprland]='ok hyprland config'
+  [fail_hyprland]='FAIL hyprland config'
   [miss_include]='MISSING include %s'
   [ok_fish]='ok fish syntax'
   [fail_fish]='FAIL fish syntax'
@@ -111,7 +115,8 @@ declare -A MSG_ID=(
   [usage]='penggunaan: ./install.sh [opsi]
 
   --lang=en|id            bahasa, default en
-  --only=global,umbriel   batasi ke paket ini (default: keduanya)
+  --only=global,umbriel,hyprland
+                          batasi ke paket ini (default: ketiganya)
   --install-core          install umbriel + noctalia + dependensi mereka saja
   --dry-run               cetak aksi, tidak mengubah apa pun
   --yes                   tanpa tanya (lewati file milik user lain)
@@ -135,6 +140,7 @@ declare -A MSG_ID=(
   [pick_prompt]='Pilih paket yang dilink ke $HOME:'
   [desc_global]='fish, starship, foot, yazi, btop, fastfetch, noctalia, yt-dlp, bunfig'
   [desc_umbriel]='config compositor + autostart tty1'
+  [desc_hyprland]='config Hyprland Lua (kompositor alternatif)'
   [repo]='repo: %s'
   [packages]='paket: %s'
   [st_new]='+ %s'
@@ -148,6 +154,8 @@ declare -A MSG_ID=(
   [missing]='HILANG %s'
   [ok_umbriel]='ok umbriel config'
   [fail_umbriel]='GAGAL umbriel config'
+  [ok_hyprland]='ok hyprland config'
+  [fail_hyprland]='GAGAL hyprland config'
   [miss_include]='HILANG include %s'
   [ok_fish]='ok fish syntax'
   [fail_fish]='GAGAL fish syntax'
@@ -323,6 +331,7 @@ choose_packages() {
       "$(t pick_prompt)" 18 84 6 \
       global "$(t desc_global)" ON \
       umbriel "$(t desc_umbriel)" ON \
+      hyprland "$(t desc_hyprland)" ON \
       3>&1 1>&2 2>&3) || die "$(t err_cancel)"
     mapfile -t pick <<<"$out"
     PKGS=("${pick[@]}")
@@ -394,17 +403,19 @@ resolve_conflicts() {
 
 link_packages() {
   local pkg
+  # --no-folding keeps runtime-generated files (e.g. ~/.config/hypr/noctalia.lua)
+  # out of the repo; stow would otherwise symlink whole config dirs.
   for pkg in "${PKGS[@]}"; do
     log "== $pkg"
     resolve_conflicts "$pkg"
     if (( UNLINK )); then
-      run stow -d "$REPO" -t "$HOME" -D "$pkg"
+      run stow --no-folding -d "$REPO" -t "$HOME" -D "$pkg"
     elif (( DRY )); then
-      stow --simulate -v -d "$REPO" -t "$HOME" --restow "$pkg" >/dev/null 2>&1 ||
+      stow --simulate -v --no-folding -d "$REPO" -t "$HOME" --restow "$pkg" >/dev/null 2>&1 ||
         log "  $(t sim_conflict)"
-      log "  \$ stow -d $REPO -t \$HOME --restow $pkg"
+      log "  \$ stow --no-folding -d $REPO -t \$HOME --restow $pkg"
     else
-      run stow -d "$REPO" -t "$HOME" --restow "$pkg"
+      run stow --no-folding -d "$REPO" -t "$HOME" --restow "$pkg"
     fi
   done
 }
@@ -437,6 +448,26 @@ validate_configs() {
     while read -r inc; do
       [[ -r "$HOME/.config/umbriel/$inc" ]] || { log "  $(t miss_include "$inc")"; fail=1; }
     done < <(grep -oE '"src/[^"]+\.toml"' "$cfg" | tr -d '"')
+  fi
+
+  if [[ " ${PKGS[*]} " == *" hyprland "* ]] && command -v luac >/dev/null; then
+    local lua bad=0
+    for lua in "$REPO"/hyprland/.config/hypr/hyprland.lua "$REPO"/hyprland/.config/hypr/conf/*.lua; do
+      [[ -f $lua ]] || continue
+      if (( DRY )); then
+        log "  (dry-run) luac -p ${lua#"$REPO"/}"
+      elif ! luac -p "$lua"; then
+        bad=1
+      fi
+    done
+    if (( ! DRY )); then
+      if (( bad )); then
+        log "  $(t fail_hyprland)"
+        fail=1
+      else
+        log "  $(t ok_hyprland)"
+      fi
+    fi
   fi
 
   if [[ -f $HOME/.config/fish/config.fish ]] && command -v fish >/dev/null; then

@@ -12,7 +12,7 @@ out=$(HOME="$tmp" XDG_STATE_HOME="$tmp/state" "$REPO/install.sh" --dry-run --yes
 }
 
 [[ $out == *"stow"* ]] || { printf 'FAIL: tidak ada rencana stow\n%s\n' "$out" >&2; exit 1; }
-[[ $out == *"global"* && $out == *"umbriel"* ]] || { printf 'FAIL: paket tidak terdeteksi\n' >&2; exit 1; }
+[[ $out == *"global"* && $out == *"umbriel"* && $out == *"hyprland"* ]] || { printf 'FAIL: paket tidak terdeteksi\n' >&2; exit 1; }
 
 left=$(find "$tmp" -mindepth 1 | head -5)
 [[ -z $left ]] || { printf 'FAIL: dry-run menulis file:\n%s\n' "$left" >&2; exit 1; }

@@ -1,0 +1,121 @@
+-- #Variables
+local ipc = "noctalia msg "
+local terminal = "foot"
+local fileManager = "thunar"
+local browser = "helium-browser"
+local taskManager = "foot -e btop"
+local floatTerm = "foot --app-id=kitty-float"
+
+-- #Apps
+hl.bind("SUPER + Return", hl.dsp.exec_cmd(terminal))
+hl.bind("SUPER + E", hl.dsp.exec_cmd(fileManager))
+hl.bind("SUPER + B", hl.dsp.exec_cmd(browser))
+hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd(taskManager))
+hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd(floatTerm))
+
+-- #Utilities
+hl.bind("MENU", hl.dsp.exec_cmd(ipc .. "bar-toggle"))
+hl.bind("SUPER + A", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"), { release = true })
+hl.bind("SUPER + C", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
+hl.bind("SUPER + I", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
+hl.bind("SUPER + V", hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard"))
+hl.bind("SUPER + X", hl.dsp.exec_cmd(ipc .. "panel-toggle noctalia/notes:panel"))
+hl.bind("SUPER + Period", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher '/emo '"))
+hl.bind("SUPER + W", hl.dsp.exec_cmd(ipc .. "panel-toggle wallpaper"))
+hl.bind("SUPER + SHIFT + W", hl.dsp.exec_cmd(ipc .. "panel-toggle noctalia/wallhaven:browser"))
+hl.bind("SUPER + N", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center notifications"))
+hl.bind("SUPER + M", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center media"))
+hl.bind("SUPER + F1", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center audio"))
+-- screenshots
+hl.bind("Print", hl.dsp.exec_cmd(ipc .. "screenshot-fullscreen"), { non_consuming = true })
+hl.bind("CTRL + Print", hl.dsp.exec_cmd(ipc .. "screenshot-region"), { non_consuming = true })
+
+-- #layout
+-- Scrolling
+-- hl.bind("ALT + up", hl.dsp.layout("swapcol r"))
+-- hl.bind("ALT + down", hl.dsp.layout("swapcol l"))
+-- hl.bind("SUPER + mouse_up", hl.dsp.layout("move +col"))
+-- hl.bind("SUPER + mouse_down", hl.dsp.layout("move -col"))
+
+-- Dwindle
+hl.bind("ALT + W", hl.dsp.window.pseudo())
+hl.bind("ALT + A", hl.dsp.layout("togglesplit"))
+hl.bind("ALT + S", hl.dsp.layout("swapsplit"))
+hl.bind("ALT + D", hl.dsp.layout("rotatesplit"))
+hl.bind("ALT + page_up", hl.dsp.layout("splitratio -0.1"), { repeating = true })
+hl.bind("ALT + page_down", hl.dsp.layout("splitratio +0.1"), { repeating = true })
+
+-- #Window
+hl.bind("SUPER + Q", hl.dsp.window.close())
+hl.bind("SUPER + F", hl.dsp.window.fullscreen({ action = "toggle" }))
+hl.bind("SUPER + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
+hl.bind("SUPER + T", hl.dsp.window.float({ action = "toggle" }))
+hl.bind("SUPER + P", hl.dsp.window.pin())
+hl.bind("ALT + Tab", hl.dsp.exec_cmd(ipc .. "window-switcher"))
+
+-- move focus
+hl.bind("SUPER + left", hl.dsp.focus({ direction = "left" }))
+hl.bind("SUPER + right", hl.dsp.focus({ direction = "right" }))
+hl.bind("SUPER + up", hl.dsp.focus({ direction = "up" }))
+hl.bind("SUPER + down", hl.dsp.focus({ direction = "down" }))
+
+-- move/resize window
+hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
+hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+-- minimize
+hl.bind("SUPER + SHIFT + X", function()
+	hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
+	hl.dispatch(hl.dsp.window.move({ workspace = "+0" }))
+	hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
+	hl.dispatch(hl.dsp.window.move({ workspace = "special:minimize" }))
+	hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
+end)
+
+-- #Workspace
+-- special workspace
+hl.bind("SUPER + S", hl.dsp.workspace.toggle_special("magic"))
+hl.bind("SUPER + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+
+-- switch workspace
+for i = 1, 10 do
+	local key = i % 10
+	hl.bind("SUPER + " .. key, hl.dsp.focus({ workspace = i }))
+end
+hl.bind("SUPER + TAB", hl.dsp.focus({ workspace = "+1" }))
+hl.bind("SUPER + SHIFT + TAB", hl.dsp.focus({ workspace = "-1" }))
+
+-- window to workspace
+for i = 1, 10 do
+	local key = i % 10
+	hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+end
+hl.bind("SUPER + SHIFT + right", hl.dsp.window.move({ workspace = "+1" }))
+hl.bind("SUPER + SHIFT + left", hl.dsp.window.move({ workspace = "-1" }))
+hl.bind("SUPER + SHIFT + mouse_down", hl.dsp.window.move({ workspace = "+1" }))
+hl.bind("SUPER + SHIFT + mouse_up", hl.dsp.window.move({ workspace = "-1" }))
+
+-- #Session
+hl.bind("SUPER + L", hl.dsp.exec_cmd(ipc .. "session lock"))
+hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd(ipc .. "panel-toggle session"))
+
+-- #Multimedia
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(ipc .. "volume-up"), { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(ipc .. "volume-down"), { locked = true, repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd(ipc .. "volume-mute"), { locked = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(ipc .. "media playPause"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd(ipc .. "media next"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(ipc .. "media previous"), { locked = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(ipc .. "brightness-up"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness-down"), { locked = true, repeating = true })
+
+-- #Multimedia custom
+hl.bind("SUPER + F2", hl.dsp.exec_cmd(ipc .. "volume-down"), { locked = true, repeating = true })
+hl.bind("SUPER + F3", hl.dsp.exec_cmd(ipc .. "volume-up"), { locked = true, repeating = true })
+hl.bind("SUPER + F4", hl.dsp.exec_cmd(ipc .. "volume-mute"), { locked = true })
+hl.bind("SUPER + F5", hl.dsp.exec_cmd(ipc .. "media stop"), { locked = true })
+hl.bind("SUPER + F6", hl.dsp.exec_cmd(ipc .. "media previous"), { locked = true })
+hl.bind("SUPER + F7", hl.dsp.exec_cmd(ipc .. "media toggle"), { locked = true })
+hl.bind("SUPER + F8", hl.dsp.exec_cmd(ipc .. "media next"), { locked = true })
+hl.bind("SUPER + page_up", hl.dsp.exec_cmd(ipc .. "brightness-up"), { locked = true, repeating = true })
+hl.bind("SUPER + page_down", hl.dsp.exec_cmd(ipc .. "brightness-down"), { locked = true, repeating = true })
