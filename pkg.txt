@@ -103,7 +103,7 @@ ghostmirror
 freesmlauncher-bin
 android-studio
 flutter-bin
-legcord
+legcord-bin
 ttf-times-new-roman
 
 # flatpak
