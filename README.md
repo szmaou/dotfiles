@@ -52,4 +52,4 @@ Butuh `stow`. Backup file lama masuk `~/.dotfiles-backup/<timestamp>/`.
 ./install.sh --only=global,hyprland
 ```
 
-Runtime butuh `hyprland` + `xdg-desktop-portal-hyprland`. Portal itu konflik dengan `xdg-desktop-portal-umbriel-git`, jadi install salah satu saja. Jalankan `start-hyprland` dari TTY lain. Noctalia membuat `~/.config/hypr/noctalia.lua` lewat template tema Hyprland; config memuatnya dengan `pcall` agar tetap jalan sebelum file itu ada.
+Runtime butuh `hyprland` + `xdg-desktop-portal-hyprland`. Portal itu konflik dengan `xdg-desktop-portal-umbriel-git`, jadi install salah satu saja. Jalankan `start-hyprland` dari TTY lain. Noctalia membuat tema di `~/.config/hypr/noctalia.lua` (mode Lua) atau `noctalia.conf` (mode hyprlang); config memuat keduanya dengan fallback statis.

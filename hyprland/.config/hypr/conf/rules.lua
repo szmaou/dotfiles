@@ -1,26 +1,67 @@
--- Hyprland 0.57 has no per-window blur effect; only no_blur
+-- Mirrors umbriel/.config/umbriel/src/rules.toml.
+-- Hyprland 0.57 has no per-window blur toggle, only no_blur.
 hl.window_rule({ match = { class = ".*" }, no_blur = true })
 
--- Floating dialogs
-local dialog_patterns = {
-	"^(Open File)(.*)$",
-	"^(Select a File)(.*)$",
-	"^(Select)(.*)",
-	"^(Open Folder)(.*)$",
-	"^(Save As)(.*)$",
-	"^(Save)(.*)$",
-	"^(Library)(.*)$",
-	"^(File Upload)(.*)$",
-	"^(File Operation)(.*)$",
-	"^(Rename)(.*)$",
-}
-for _, pattern in ipairs(dialog_patterns) do
-	hl.window_rule({ match = { title = pattern }, float = true, center = true })
-end
-hl.window_rule({ match = { title = "^(.*)(wants to save)$" }, float = true, center = true })
-hl.window_rule({ match = { title = "^(.*)(wants to open)$" }, float = true, center = true })
+-- Default scrolling extent (umbriel default_scrolling_extent)
+hl.window_rule({ match = { class = "^(Alacritty|kitty|org\\.gnome\\.Nautilus)$" }, scrolling_width = 0.33 })
+hl.window_rule({ match = { class = "^(helium|chromium)$" }, scrolling_width = 0.75 })
 
--- Picture-in-Picture
+-- Proton / games fullscreen
+hl.window_rule({ match = { xdg_tag = "^proton-game$" }, fullscreen = true })
+hl.window_rule({ match = { class = "^(steam_proton|steam_app.*|overwatch|overwatch\\.exe)$" }, fullscreen = true })
+
+-- Tearing
+hl.window_rule({ match = { class = "^(steam_app_[0-9]+|gamescope)$" }, immediate = true })
+hl.window_rule({ match = { class = "^(steam_app).*" }, immediate = true })
+hl.window_rule({ match = { title = ".*\\.exe" }, immediate = true })
+hl.window_rule({ match = { title = ".*minecraft.*" }, immediate = true })
+
+-- Opacity
+hl.window_rule({ match = { class = "^(code|org\\.gnome\\.Nautilus)$" }, opacity = "0.97" })
+hl.window_rule({ match = { float = true, focus = false }, opacity = "0.4 override" })
+
+-- Floating apps
+hl.window_rule({
+	match = { class = "^(Emulator|zenity|xdg-desktop-portal|qalculate-gtk|org\\.pulseaudio\\.pavucontrol)$" },
+	float = true,
+})
+hl.window_rule({
+	match = { class = "^dev\\.lemmy\\.swash$" },
+	float = true,
+	size = { 1000, 900 },
+})
+
+-- Floating dialogs
+local dialog_titles = {
+	"^(Open File|Select|Choose a wallpaper|Open Folder|Save As|Library|Choose Where to Download|File Operation Progress|Rename|Copy Files|Move Files|Search Files)",
+}
+for _, title in ipairs(dialog_titles) do
+	hl.window_rule({ match = { title = title }, float = true })
+end
+
+-- Notification toasts: bottom right, unfocused, pinned
+hl.window_rule({
+	match = { title = "^notificationtoasts_.+_desktop$" },
+	float = true,
+	pin = true,
+	no_initial_focus = true,
+	move = "monitor_w - window_w - 12 monitor_h - window_h - 12",
+})
+
+-- Noctalia windows
+hl.window_rule({
+	match = { class = "^dev\\.noctalia\\.Noctalia$" },
+	float = true,
+	size = { 1020, 700 },
+})
+hl.window_rule({
+	match = { class = "^dev\\.noctalia\\.NoctaliaSharePicker$" },
+	float = true,
+	size = { 800, 600 },
+	move = "monitor_w - window_w - 32 monitor_h - window_h - 32",
+})
+
+-- Hyprland-specific helpers
 hl.window_rule({
 	match = { title = "^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$" },
 	float = true,
@@ -29,41 +70,20 @@ hl.window_rule({
 	move = "(monitor_w * 0.73) (monitor_h * 0.72)",
 	size = "(monitor_w * 0.25) (monitor_h * 0.25)",
 })
-
--- Share picker
 hl.window_rule({ match = { class = "^(hyprland-share-picker)$" }, float = true, center = true })
-
--- Noctalia settings / share picker windows
-hl.window_rule({
-	match = { class = "^dev\\.noctalia\\.Noctalia$" },
-	float = true,
-	center = true,
-	size = { 1020, 700 },
-})
-hl.window_rule({
-	match = { class = "^dev\\.noctalia\\.NoctaliaSharePicker$" },
-	float = true,
-	size = { 800, 600 },
-})
-
--- Screen sharing
 hl.window_rule({
 	match = { title = ".*is sharing (a window|your screen).*" },
 	float = true,
 	pin = true,
 	move = "(monitor_w * 0.5 - window_w * 0.5) (monitor_h - window_h - 12)",
 })
-
--- Tearing (games / wine)
-hl.window_rule({ match = { title = ".*\\.exe" }, immediate = true })
-hl.window_rule({ match = { title = ".*minecraft.*" }, immediate = true })
-hl.window_rule({ match = { class = "^(steam_app).*" }, immediate = true })
-
--- Tiling override
 hl.window_rule({ match = { class = "^dev\\.warp\\.Warp$" }, tile = true })
-
--- No shadow for non-floating windows
 hl.window_rule({ match = { float = false }, no_shadow = true })
+-- Fix JetBrains IDEs focus / rerendering
+hl.window_rule({
+	match = { class = "^jetbrains-.*$", float = true, title = "^$|^\\s$|^win\\d+$" },
+	no_initial_focus = true,
+})
 
 -- Layer rules
 hl.layer_rule({ match = { namespace = "hyprpicker" }, no_anim = true })
@@ -77,17 +97,4 @@ hl.layer_rule({
 	ignore_alpha = 0.5,
 	blur = true,
 	blur_popups = true,
-})
-
--- Workspace rules
-hl.workspace_rule({ workspace = "special:magic", gaps_out = 20 })
-
--- App
-hl.window_rule({ match = { class = "DesktopEditors" }, float = true, center = true })
-hl.window_rule({ match = { class = "vesktop" }, workspace = "special:magic" })
-hl.window_rule({ match = { class = "^(org.gnome.FileRoller)$" }, float = true, center = true })
--- Fix JetBrains IDEs focus / rerendering
-hl.window_rule({
-	match = { class = "^jetbrains-.*$", float = true, title = "^$|^\\s$|^win\\d+$" },
-	no_initial_focus = true,
 })
