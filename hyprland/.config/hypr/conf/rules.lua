@@ -16,19 +16,12 @@ hl.window_rule({
 
 -- Floating utility windows
 hl.window_rule({ match = { class = "^(blueberry\\.py|guifetch)$" }, float = true })
-hl.window_rule({ match = { class = "plasmawindowed|kcm_|bluedevilwizard" }, float = true })
-hl.window_rule({ match = { title = "illogical-impulse Settings" }, float = true })
 hl.window_rule({ match = { title = "Welcome|Shell conflicts" }, float = true })
 hl.window_rule({
 	match = { class = "^(org\\.pulseaudio\\.)?pavucontrol$|^nm-connection-editor$" },
 	float = true,
 	center = true,
 	size = { "monitor_w*0.45", "monitor_h*0.45" },
-})
-hl.window_rule({
-	match = { class = "org.freedesktop.impl.portal.desktop.kde" },
-	float = true,
-	size = { "monitor_w*0.60", "monitor_h*0.65" },
 })
 hl.window_rule({
 	match = { class = "^(Zotero)$" },
