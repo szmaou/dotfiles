@@ -1,4 +1,8 @@
 local ipc = "noctalia msg "
+local terminal = "foot"
+local fileManager = "thunar"
+local taskManager = "foot -e btop"
+local browser = "helium-browser"
 
 -- #Session
 hl.bind("SUPER + Escape", hl.dsp.exit())
@@ -7,10 +11,10 @@ hl.bind("SUPER + L", hl.dsp.exec_cmd(ipc .. "session lock"))
 hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd(ipc .. "panel-toggle session"))
 
 -- #Apps
-hl.bind("SUPER + Return", hl.dsp.exec_cmd("foot"))
-hl.bind("SUPER + E", hl.dsp.exec_cmd("thunar"))
-hl.bind("SUPER + B", hl.dsp.exec_cmd("helium-browser"))
-hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd("foot -e btop"))
+hl.bind("SUPER + Return", hl.dsp.exec_cmd(terminal))
+hl.bind("SUPER + E", hl.dsp.exec_cmd(fileManager))
+hl.bind("SUPER + B", hl.dsp.exec_cmd(browser))
+hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd(taskManager))
 
 -- #Noctalia / utilities
 hl.bind("SUPER + A", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))

@@ -1,5 +1,6 @@
 package.path = os.getenv("HOME") .. "/.config/hypr/?.lua;" .. package.path
 
+require("conf.env")
 require("conf.execs")
 require("conf.general")
 require("conf.keybinds")

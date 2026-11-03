@@ -1,7 +1,5 @@
-hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
-hl.env("QT_QPA_PLATFORM", "wayland;xcb")
-hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
-
 hl.on("hyprland.start", function()
+	-- Hyprland already exports the Wayland vars; --all also covers PATH etc.
+	hl.exec_cmd("dbus-update-activation-environment --all")
 	hl.exec_cmd("noctalia")
 end)

@@ -1,43 +1,72 @@
--- Mirrors umbriel/.config/umbriel/src/rules.toml.
--- Hyprland 0.57 has no per-window blur toggle, only no_blur.
-hl.window_rule({ match = { class = ".*" }, no_blur = true })
+-- Disable blur for every window
+hl.window_rule({match = {class = ".*" }, no_blur = true })
 
--- Default scrolling extent (umbriel default_scrolling_extent)
-hl.window_rule({ match = { class = "^(Alacritty|kitty|org\\.gnome\\.Nautilus)$" }, scrolling_width = 0.33 })
-hl.window_rule({ match = { class = "^(helium|chromium)$" }, scrolling_width = 0.75 })
+-- Floating
+hl.window_rule({match = {title = "^(Open File)(.*)$" },                      center = true})
+hl.window_rule({match = {title = "^(Open File)(.*)$" },                      float = true})
+hl.window_rule({match = {title = "^(Select a File)(.*)$" },                  center = true})
+hl.window_rule({match = {title = "^(Select a File)(.*)$" },                  float = true})
+hl.window_rule({match = {title = "^(Choose wallpaper)(.*)$" },               center = true})
+hl.window_rule({match = {title = "^(Choose wallpaper)(.*)$" },               float = true})
+hl.window_rule({match = {title = "^(Choose wallpaper)(.*)$" },               size = {"(monitor_w*0.60)", "(monitor_h*0.65)"} })
+hl.window_rule({match = {title = "^(Open Folder)(.*)$" },                    center = true})
+hl.window_rule({match = {title = "^(Open Folder)(.*)$" },                    float = true})
+hl.window_rule({match = {title = "^(Select the mod file to import)(.*)$" },  center = true}) -- Gale
+hl.window_rule({match = {title = "^(Select the mod file to import)(.*)$" },  float = true})
+hl.window_rule({match = {title = "^(Save As)(.*)$" },                        center = true})
+hl.window_rule({match = {title = "^(Save As)(.*)$" },                        float = true})
+hl.window_rule({match = {title = "^(Library)(.*)$" },                        center = true})
+hl.window_rule({match = {title = "^(Library)(.*)$" },                        float = true})
+hl.window_rule({match = {title = "^(File Upload)(.*)$" },                    center = true})
+hl.window_rule({match = {title = "^(File Upload)(.*)$" },                    float = true})
+hl.window_rule({match = {title = "^(.*)(wants to save)$" },                  center = true})
+hl.window_rule({match = {title = "^(.*)(wants to save)$" },                  float = true})
+hl.window_rule({match = {title = "^(.*)(wants to open)$" },                  center = true})
+hl.window_rule({match = {title = "^(.*)(wants to open)$" },                  float = true})
+hl.window_rule({match = {class = "^(blueberry\\.py)$" },                     float = true})
+hl.window_rule({match = {class = "^(guifetch)$" },                           float = true}) -- FlafyDev/guifetch
+hl.window_rule({match = {class = "^(pavucontrol)$" },                        float = true})
+hl.window_rule({match = {class = "^(pavucontrol)$" },                        size = {"(monitor_w*0.45)", "(monitor_h*0.45)"} })
+hl.window_rule({match = {class = "^(pavucontrol)$" },                        center = true})
+hl.window_rule({match = {class = "^(org.pulseaudio.pavucontrol)$" },         float = true})
+hl.window_rule({match = {class = "^(org.pulseaudio.pavucontrol)$" },         size = {"(monitor_w*0.45)", "(monitor_h*0.45)"} })
+hl.window_rule({match = {class = "^(org.pulseaudio.pavucontrol)$" },         center = true})
+hl.window_rule({match = {class = "^(nm-connection-editor)$" },               float = true})
+hl.window_rule({match = {class = "^(nm-connection-editor)$" },               size = {"(monitor_w*0.45)", "(monitor_h*0.45)"} })
+hl.window_rule({match = {class = "^(nm-connection-editor)$" },               center = true})
+hl.window_rule({match = {class = ".*plasmawindowed.*" },                     float = true})
+hl.window_rule({match = {class = "kcm_.*" },                                  float = true})
+hl.window_rule({match = {class = ".*bluedevilwizard" },                      float = true})
+hl.window_rule({match = {title = ".*Welcome" },                              float = true})
+hl.window_rule({match = {title = "^(illogical-impulse Settings)$" },         float = true})
+hl.window_rule({match = {title = ".*Shell conflicts.*" },                    float = true})
+hl.window_rule({match = {class = "org.freedesktop.impl.portal.desktop.kde" }, float = true})
+hl.window_rule({match = {class = "org.freedesktop.impl.portal.desktop.kde" }, size = {"(monitor_w*0.60)", "(monitor_h*0.65)"} })
+hl.window_rule({match = {class = "^(Zotero)$" },                             float = true})
+hl.window_rule({match = {class = "^(Zotero)$" },                             size = {"(monitor_w*0.45)", "(monitor_h*0.45)"} })
+
+-- Tiling
+-- Ignore app maximize requests so restored window states do not override tiling.
+hl.window_rule({match = {class = ".*" }, suppress_event = "maximize"})
+
+-- Picture-in-Picture
+hl.window_rule({match = {title = "^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$" }, float = true})
+hl.window_rule({match = {title = "^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$" }, keep_aspect_ratio = true})
+hl.window_rule({match = {title = "^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$" }, move = {"(monitor_w*0.73)", "(monitor_h*0.72)"} })
+hl.window_rule({match = {title = "^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$" }, size = {"(monitor_w*0.25)", "(monitor_h*0.25)"} })
+hl.window_rule({match = {title = "^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$" }, pin = true})
+
+-- Tearing
+hl.window_rule({match = {title = ".*\\.exe" }, immediate = true})
+hl.window_rule({match = {title = ".*minecraft.*" }, immediate = true})
+hl.window_rule({match = {class = "^(steam_app).*" }, immediate = true})
 
 -- Proton / games fullscreen
 hl.window_rule({ match = { xdg_tag = "^proton-game$" }, fullscreen = true })
 hl.window_rule({ match = { class = "^(steam_proton|steam_app.*|overwatch|overwatch\\.exe)$" }, fullscreen = true })
 
--- Tearing
-hl.window_rule({ match = { class = "^(steam_app_[0-9]+|gamescope)$" }, immediate = true })
-hl.window_rule({ match = { class = "^(steam_app).*" }, immediate = true })
-hl.window_rule({ match = { title = ".*\\.exe" }, immediate = true })
-hl.window_rule({ match = { title = ".*minecraft.*" }, immediate = true })
-
--- Opacity
-hl.window_rule({ match = { class = "^(code|org\\.gnome\\.Nautilus)$" }, opacity = "0.97" })
-hl.window_rule({ match = { float = true, focus = false }, opacity = "0.4 override" })
-
--- Floating apps
-hl.window_rule({
-	match = { class = "^(Emulator|zenity|xdg-desktop-portal|qalculate-gtk|org\\.pulseaudio\\.pavucontrol)$" },
-	float = true,
-})
-hl.window_rule({
-	match = { class = "^dev\\.lemmy\\.swash$" },
-	float = true,
-	size = { 1000, 900 },
-})
-
--- Floating dialogs
-local dialog_titles = {
-	"^(Open File|Select|Choose a wallpaper|Open Folder|Save As|Library|Choose Where to Download|File Operation Progress|Rename|Copy Files|Move Files|Search Files)",
-}
-for _, title in ipairs(dialog_titles) do
-	hl.window_rule({ match = { title = title }, float = true })
-end
+-- No shadow for tiled windows
+hl.window_rule({ match = { float = false }, no_shadow = true })
 
 -- Notification toasts: bottom right, unfocused, pinned
 hl.window_rule({
