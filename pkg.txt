@@ -14,7 +14,6 @@ tree-sitter-cli
 btop
 git
 github-cli
-lazygit
 less
 foot
 fish
@@ -29,6 +28,7 @@ thunar-archive-plugin
 xarchiver
 tumbler
 nwg-look
+qt6-wayland
 qt6ct
 adw-gtk-theme
 android-tools
@@ -79,7 +79,7 @@ godot
 obs-studio
 lact
 php
-rust
+rustup
 clang
 composer
 docker
@@ -90,7 +90,6 @@ mariadb
 steam
 pavucontrol
 just
-blender
 trash-cli
 obsidian
 power-profiles-daemon

@@ -6,7 +6,6 @@ set -gx VISUAL nvim
 set -gx CARGO_HOME "$HOME/.local/share/cargo"
 set -gx RUSTUP_HOME "$HOME/.local/share/rustup"
 set -gx GOPATH "$HOME/.local/share/go"
-set -gx NPM_CONFIG_USERCONFIG "$HOME/.config/npm/npmrc"
 
 # Format man pages
 set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"

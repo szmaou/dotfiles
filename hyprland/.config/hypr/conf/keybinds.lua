@@ -1,4 +1,4 @@
-local ipc = "noctalia msg "
+local ipc = "hayu "
 local terminal = "foot"
 local fileManager = "thunar"
 local taskManager = "foot -e btop"
@@ -7,8 +7,8 @@ local browser = "helium-browser"
 -- #Session
 hl.bind("SUPER + Escape", hl.dsp.exit())
 hl.bind("SUPER + Q", hl.dsp.window.close())
+hl.bind("SUPER + R", hl.dsp.exec_cmd("hyprland-run"))
 hl.bind("SUPER + L", hl.dsp.exec_cmd(ipc .. "session lock"))
-hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd(ipc .. "panel-toggle session"))
 
 -- #Apps
 hl.bind("SUPER + Return", hl.dsp.exec_cmd(terminal))
@@ -16,19 +16,23 @@ hl.bind("SUPER + E", hl.dsp.exec_cmd(fileManager))
 hl.bind("SUPER + B", hl.dsp.exec_cmd(browser))
 hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd(taskManager))
 
+-- #hayu
+hl.bind("SUPER + A", hl.dsp.exec_cmd(ipc .. "launcher toggle"))
+
 -- #Noctalia / utilities
-hl.bind("SUPER + A", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
-hl.bind("SUPER + S", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
-hl.bind("SUPER + N", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center notifications"))
-hl.bind("SUPER + V", hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard"))
-hl.bind("SUPER + X", hl.dsp.exec_cmd(ipc .. "panel-toggle noctalia/notes:panel"))
-hl.bind("SUPER + W", hl.dsp.exec_cmd(ipc .. "panel-toggle wallpaper"))
-hl.bind("SUPER + SHIFT + W", hl.dsp.exec_cmd(ipc .. "panel-toggle noctalia/wallhaven:browser"))
-hl.bind("SUPER + F1", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center media"))
-hl.bind("SUPER + I", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
-hl.bind("MENU", hl.dsp.exec_cmd(ipc .. "bar-toggle"))
-hl.bind("Print", hl.dsp.exec_cmd(ipc .. "screenshot-fullscreen"))
-hl.bind("CTRL + Print", hl.dsp.exec_cmd(ipc .. "screenshot-region"))
+-- hl.bind("SUPER + A", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
+-- hl.bind("SUPER + S", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
+-- hl.bind("SUPER + N", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center notifications"))
+-- hl.bind("SUPER + V", hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard"))
+-- hl.bind("SUPER + X", hl.dsp.exec_cmd(ipc .. "panel-toggle noctalia/notes:panel"))
+-- hl.bind("SUPER + W", hl.dsp.exec_cmd(ipc .. "panel-toggle wallpaper"))
+-- hl.bind("SUPER + SHIFT + W", hl.dsp.exec_cmd(ipc .. "panel-toggle noctalia/wallhaven:browser"))
+-- hl.bind("SUPER + F1", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center media"))
+-- hl.bind("SUPER + I", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
+-- hl.bind("MENU", hl.dsp.exec_cmd(ipc .. "bar-toggle"))
+-- hl.bind("Print", hl.dsp.exec_cmd(ipc .. "screenshot-fullscreen"))
+-- hl.bind("CTRL + Print", hl.dsp.exec_cmd(ipc .. "screenshot-region"))
+-- hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd(ipc .. "panel-toggle session"))
 
 -- #Window
 hl.bind("SUPER + T", hl.dsp.window.float({ action = "toggle" }))
@@ -37,7 +41,7 @@ hl.bind("SUPER + P", hl.dsp.window.pin())
 hl.bind("SUPER + M", hl.dsp.window.fullscreen({ action = "toggle", mode = "maximized" }))
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind("SUPER + SHIFT + F", hl.dsp.window.fullscreen({ action = "toggle", mode = "maximized" }))
-hl.bind("SUPER + R", hl.dsp.layout("colresize +conf"))
+-- hl.bind("SUPER + R", hl.dsp.layout("colresize +conf"))
 hl.bind("SUPER + SHIFT + R", hl.dsp.layout("colresize -conf"))
 hl.bind("SUPER + Comma", hl.dsp.layout("consume"))
 hl.bind("SUPER + Period", hl.dsp.layout("consume_or_expel next"))
@@ -84,21 +88,23 @@ hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Multimedia
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(ipc .. "volume-up"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(ipc .. "volume-down"), { locked = true, repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd(ipc .. "volume-mute"), { locked = true })
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(ipc .. "brightness-up"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness-down"), { locked = true, repeating = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(ipc .. "media playPause"), { locked = true })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd(ipc .. "media next"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(ipc .. "media previous"), { locked = true })
-
-hl.bind("SUPER + F2", hl.dsp.exec_cmd(ipc .. "volume-down"), { locked = true, repeating = true })
-hl.bind("SUPER + F3", hl.dsp.exec_cmd(ipc .. "volume-up"), { locked = true, repeating = true })
-hl.bind("SUPER + F4", hl.dsp.exec_cmd(ipc .. "volume-mute"), { locked = true })
-hl.bind("SUPER + F5", hl.dsp.exec_cmd(ipc .. "media stop"), { locked = true })
-hl.bind("SUPER + F6", hl.dsp.exec_cmd(ipc .. "media previous"), { locked = true })
-hl.bind("SUPER + F7", hl.dsp.exec_cmd(ipc .. "media toggle"), { locked = true })
-hl.bind("SUPER + F8", hl.dsp.exec_cmd(ipc .. "media next"), { locked = true })
-hl.bind("SUPER + CTRL + Page_Up", hl.dsp.exec_cmd(ipc .. "brightness-up"), { locked = true, repeating = true })
-hl.bind("SUPER + CTRL + Page_Down", hl.dsp.exec_cmd(ipc .. "brightness-down"), { locked = true, repeating = true })
+local locked = { locked = true }
+local rep = { locked = true, repeating = true }
+local function mm(key, cmd, opts)
+	hl.bind(key, hl.dsp.exec_cmd(ipc .. cmd), opts)
+end
+for _, b in ipairs({
+	{ "volume-up", rep, "XF86AudioRaiseVolume", "SUPER + F3" },
+	{ "volume-down", rep, "XF86AudioLowerVolume", "SUPER + F2" },
+	{ "volume-mute", locked, "XF86AudioMute", "SUPER + F4" },
+	{ "brightness-up", rep, "XF86MonBrightnessUp", "SUPER + CTRL + Page_Up" },
+	{ "brightness-down", rep, "XF86MonBrightnessDown", "SUPER + CTRL + Page_Down" },
+	{ "media toggle", locked, "XF86AudioPlay", "SUPER + F7" },
+	{ "media next", locked, "XF86AudioNext", "SUPER + F8" },
+	{ "media previous", locked, "XF86AudioPrev", "SUPER + F6" },
+	{ "media stop", locked, "SUPER + F5" },
+}) do
+	for i = 3, #b do
+		mm(b[i], b[1], b[2])
+	end
+end

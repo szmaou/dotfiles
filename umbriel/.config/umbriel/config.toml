@@ -114,7 +114,7 @@ action = "overview-toggle"
 [hot_corners.bottom_right]
 enabled = false
 delay_ms = 500
-action = "spawn:notify-send 'Bottom right'"
+action = "spawn notify-send 'Bottom right'"
 
 # ─────────────────────── Security Context Rules ─────────────────────────────
 # Sandboxed clients receive a restricted Wayland global set. Grant extra

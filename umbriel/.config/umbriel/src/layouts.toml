@@ -26,6 +26,11 @@ center_underfull_strip = true     # Center a strip narrower than the viewport
 center_focused = "on_overflow"    # Always center the focused column
 center_on_overview_select = false
 
+[layout.stacking]
+# Edge and corner drop zones are disabled in the stacking layout, so dragging a
+# window onto a screen edge does not retile or snap it.
+drop_zones = false
+
 [layout.dwindle]
 # preserve_split = false                        # Keep every split direction fixed after creation
 new_toward_cursor = false
